@@ -2,7 +2,7 @@
 <table *ngIf=procedurer >
   <thead>
       <tr>
-          <th>Organområde</th>
+          <th>Organ-område</th>
           <th>Provmaterial</th>
           <th>Procedur</th>
           <th>Är läkare</th>
@@ -24,4 +24,5 @@
           <td>{{item.Region.RegionNamn}}</td>
       </tr>
   </tbody>
+  <mark>Antal rader: {{procedurer.length}}</mark>
 </table>
