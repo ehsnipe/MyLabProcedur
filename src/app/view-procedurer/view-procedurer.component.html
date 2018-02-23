@@ -1,0 +1,25 @@
+<p>Procedurer</p>
+<p>Hej: {{procedurer[0].Organomrade}}</p>
+<table *ngIf=procedurer >
+  <thead>
+      <tr>
+          <th>Organområde</th>
+          <th>Provmaterial</th>
+          <th>Procedur</th>
+          <th>Är läkare</th>
+          <th>Faktureras</th>
+          <th>Atena benämning</th>
+          <th>Regelnamn</th>
+      </tr>
+  </thead>
+  <tbody *ngFor="let item of procedurer ">
+      <tr>
+          <td>{{item.Organomrade}}</td>
+          <td>{{item.Provmaterial}}</td>
+          <td>{{item.Procedure}}</td>
+          <td>{{item.IsDoctor}}</td>
+          <td>{{item.Faktureras}}</td>
+          <td>{{item.AtenaNameing}}</td>
+      </tr>
+  </tbody>
+</table>
