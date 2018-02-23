@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
 import {Procedur} from './procedur';
+import {PROCEDURER} from './mock-procedurer';
+import {ProcedurService} from '../services/procedur.service';
 
 @Component({
   selector: 'app-view-procedurer',
@@ -9,22 +11,18 @@ import {Procedur} from './procedur';
 })
 export class ViewProcedurerComponent implements OnInit {
 
-  procedurer: Procedur[] = [{ ProcedurerId: 1, Organomrade: 'Orgomr', Procedure: 'Skrap',
-      Provmaterial: 'Patologi', IsDoctor: false, Faktureras: 'BMA antal klossar',
-      AtenaNameing: 'Kloss', UpdatedByUserId: 'perw'
-      },
-      { ProcedurerId: 2, Organomrade: 'Orgomr', Procedure: 'Skrap',
-      Provmaterial: 'Patologi', IsDoctor: true, Faktureras: 'BMA antal klossar',
-      AtenaNameing: 'Kloss', UpdatedByUserId: 'perw'
-      },
-      { ProcedurerId: 3, Organomrade: 'Orgomr', Procedure: 'Skrap',
-      Provmaterial: 'Patologi', IsDoctor: false, Faktureras: 'BMA antal klossar',
-      AtenaNameing: 'Kloss', UpdatedByUserId: 'perw'
-    }];
+  procedurer: Procedur[];
 
-  constructor() { }
+  constructor(private procedureService: ProcedurService) { }
 
   ngOnInit() {
+    this.getProcedurer();
+  }
+
+  getProcedurer(): void {
+    this.procedureService.getProcedurer()
+        .subscribe(p => this.procedurer = p);
+    // this.procedurer = this.procedureService.getProcedurer();
   }
 
 }

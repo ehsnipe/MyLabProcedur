@@ -1,5 +1,4 @@
 <p>Procedurer</p>
-<p>Hej: {{procedurer[0].Organomrade}}</p>
 <table *ngIf=procedurer >
   <thead>
       <tr>
@@ -10,6 +9,7 @@
           <th>Faktureras</th>
           <th>Atena benämning</th>
           <th>Regelnamn</th>
+          <th>Region</th>
       </tr>
   </thead>
   <tbody *ngFor="let item of procedurer ">
@@ -20,6 +20,8 @@
           <td>{{item.IsDoctor}}</td>
           <td>{{item.Faktureras}}</td>
           <td>{{item.AtenaNameing}}</td>
+          <td>{{item.RegelTypen?.RegelTypeName}}</td>
+          <td>{{item.Region.RegionNamn}}</td>
       </tr>
   </tbody>
 </table>

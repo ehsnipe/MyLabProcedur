@@ -1,6 +1,6 @@
-class export Procedur {
+export class Procedur {
     ProcedurerId: number;
-    //region: Region;
+    region: Region;
     Organomrade: string;
     Procedure: string;
     IsDoctor: boolean;
@@ -8,16 +8,15 @@ class export Procedur {
     AtenaNameing: string;
     DateCreated: Date;
     Provmaterial: string;
-    //regelTypen: RegelTypen;
+    regelTypen: RegelTypen;
     UpdatedByUserId: string;
    }
 
-   /*class Region {
+   class Region {
     RegionId: number;
     RegionNamn: string;
   }
-  
   class RegelTypen {
     RegelTypeId: number;
     RegelTypeName: string;
-  }*/
+  }
