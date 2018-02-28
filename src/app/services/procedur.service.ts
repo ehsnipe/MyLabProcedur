@@ -4,13 +4,12 @@ import { of } from 'rxjs/observable/of';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { MessageService } from '../message.service';
-import {PROCEDURER} from '../view-procedurer/mock-procedurer';
 import { Procedur } from '../view-procedurer/procedur';
 
 @Injectable()
 export class ProcedurService {
 
-  private procedurUrl = 'http://localhost:8087/api/Procedurer';  // URL to web api
+  private procedurUrl = 'http://localhost:2311/api/Procedurer';  // URL to web api
 
   constructor(
     private http: HttpClient,
@@ -19,7 +18,6 @@ export class ProcedurService {
   getProcedurer(): Observable<Procedur[]> {
     this.messageService.add('ProcedurService: fetched procedurer');
     return this.http.get<Procedur[]>(this.procedurUrl);
-    // return of(PROCEDURER);
   }
 
   /** Log a message with the MessageService */

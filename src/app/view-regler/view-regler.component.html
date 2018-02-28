@@ -1,0 +1,25 @@
+<p>
+  view-regler works!
+</p>
+<p>Procedurer</p>
+<table *ngIf=regler >
+  <thead>
+      <tr>
+          <th>Regel</th>
+          <th>Fakt</th>
+          <th>Start</th>
+          <th>Slut</th>
+      </tr>
+  </thead>
+  <tbody *ngFor="let item of regler ">
+      <tr>
+          <td>{{item.RegelTypeName?.RegelTypeName}}</td>
+          <td>{{item.Fakt}}</td>
+          <td>{{item.StartAntal}}</td>
+          <td>{{item.SlutAntal}}</td>
+      </tr>
+  </tbody>
+  <mark>Antal rader: {{regler.length}}</mark>
+  
+</table>
+

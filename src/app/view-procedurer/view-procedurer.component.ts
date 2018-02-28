@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 import {Procedur} from './procedur';
-import {PROCEDURER} from './mock-procedurer';
 import {ProcedurService} from '../services/procedur.service';
 
 @Component({
