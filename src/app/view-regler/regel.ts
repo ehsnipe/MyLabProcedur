@@ -1,3 +1,5 @@
+import { RegelType } from './regeltype';
+
 export class Regel {
     RegelId: number;
     RegelTypeName: RegelType;
@@ -6,9 +8,4 @@ export class Regel {
     Fakt: string;
     DateCreated: Date;
     UpdatedByUserId: string;
-}
-
-class RegelType {
-    RegelTypeId: number;
-    RegelTypeName: string;
 }

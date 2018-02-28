@@ -13,6 +13,8 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { ViewReglerComponent } from './view-regler/view-regler.component';
 import { RegelService } from './services/regel.service';
+import { CreateprocedurComponent } from './createprocedur/createprocedur.component';
+import { CreateregelComponent } from './createregel/createregel.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +22,9 @@ import { RegelService } from './services/regel.service';
     NavmenuComponent,
     ViewProcedurerComponent,
     MessagesComponent,
-    ViewReglerComponent
+    ViewReglerComponent,
+    CreateprocedurComponent,
+    CreateregelComponent
   ],
   imports: [
     BrowserModule,
