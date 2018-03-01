@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
+import {MatTableDataSource} from '@angular/material';
+
 import {Procedur} from './procedur';
 import {ProcedurService} from '../services/procedur.service';
 
@@ -9,13 +11,20 @@ import {ProcedurService} from '../services/procedur.service';
   styleUrls: ['./view-procedurer.component.css']
 })
 export class ViewProcedurerComponent implements OnInit {
-
+  displayedColumns = ['Organomrade', 'Provmaterial', 'Procedure', 'IsDoctor', 'Faktureras',
+                      'AtenaNameing', 'RegelTypeName', 'RegionNamn'];
   procedurer: Procedur[];
 
   constructor(private procedureService: ProcedurService) { }
 
   ngOnInit() {
     this.getProcedurer();
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.procedurer.filter(s => s.Organomrade.toLowerCase() === filterValue);
   }
 
   getProcedurer(): void {
@@ -25,5 +34,3 @@ export class ViewProcedurerComponent implements OnInit {
   }
 
 }
-
-

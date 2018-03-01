@@ -1,29 +1,62 @@
-<p>Procedurer</p>
-<table *ngIf=procedurer >
-  <thead>
-      <tr>
-          <th>Organ-område</th>
-          <th>Provmaterial</th>
-          <th>Procedur</th>
-          <th>Är läkare</th>
-          <th>Faktureras</th>
-          <th>Atena benämning</th>
-          <th>Regelnamn</th>
-          <th>Region</th>
-      </tr>
-  </thead>
-  <tbody *ngFor="let item of procedurer ">
-      <tr>
-          <td>{{item.Organomrade}}</td>
-          <td>{{item.Provmaterial}}</td>
-          <td>{{item.Procedure}}</td>
-          <td>{{item.IsDoctor}}</td>
-          <td>{{item.Faktureras}}</td>
-          <td>{{item.AtenaNameing}}</td>
-          <td>{{item.RegelTypen?.RegelTypeName}}</td>
-          <td>{{item.Region.RegionNamn}}</td>
-      </tr>
-  </tbody>
-  <mark>Antal rader: {{procedurer.length}}</mark>
+<h2>Procedurer</h2>
+<br/>
+<!--<div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+</div> -->
+<div *ngIf=procedurer>
+<mat-table [dataSource]=procedurer>
+ <!-- Position Column -->
+ <ng-container matColumnDef="Organomrade">
+        <mat-header-cell *matHeaderCellDef> Organomrade </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.Organomrade}} </mat-cell>
+      </ng-container>
   
-</table>
+      <!-- Name Column -->
+      <ng-container matColumnDef="Provmaterial">
+        <mat-header-cell *matHeaderCellDef> Provmaterial </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.Provmaterial}} </mat-cell>
+      </ng-container>
+
+          <!-- Procedure Column -->
+          <ng-container matColumnDef="Procedure">
+                <mat-header-cell *matHeaderCellDef> Procedure </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Procedure}} </mat-cell>
+              </ng-container>
+  
+      <!-- IsDoctor Column -->
+      <ng-container matColumnDef="IsDoctor">
+        <mat-header-cell *matHeaderCellDef> IsDoctor </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.IsDoctor}} </mat-cell>
+      </ng-container>
+  
+      <!-- Faktureras Column -->
+      <ng-container matColumnDef="Faktureras">
+        <mat-header-cell *matHeaderCellDef> Faktureras </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.Faktureras}} </mat-cell>
+      </ng-container>
+
+            <!-- AtenaNameing Column -->
+            <ng-container matColumnDef="AtenaNameing">
+                    <mat-header-cell *matHeaderCellDef> AtenaNameing </mat-header-cell>
+                    <mat-cell *matCellDef="let element"> {{element.AtenaNameing}} </mat-cell>
+                  </ng-container>
+
+                        <!-- RegelTypeName Column -->
+      <ng-container matColumnDef="RegelTypeName">
+            <mat-header-cell *matHeaderCellDef> RegelTypeName </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.RegelTypen?.RegelTypeName}} </mat-cell>
+          </ng-container>
+
+                <!-- RegionNamn Column -->
+      <ng-container matColumnDef="RegionNamn">
+            <mat-header-cell *matHeaderCellDef> RegionNamn </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.Region.RegionNamn}} </mat-cell>
+          </ng-container>
+  
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+</mat-table>
+<mark>Antal rader: {{procedurer.length}}</mark>
+</div>

@@ -3,6 +3,9 @@ import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatDialogModule} from '@angular/material';
+
 import { AppComponent } from './app.component';
 import { NavmenuComponent } from './app/navmenu/navmenu.component';
 import { ViewProcedurerComponent } from './view-procedurer/view-procedurer.component';
@@ -30,7 +33,10 @@ import { CreateregelComponent } from './createregel/createregel.component';
     BrowserModule,
     FormsModule,
     AppRoutingModule,
-    HttpClientModule],
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatButtonModule, MatCheckboxModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatDialogModule
+  ],
   providers: [ProcedurService, MessageService, RegelService],
   bootstrap: [AppComponent]
 })

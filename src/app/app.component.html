@@ -1,15 +1,20 @@
 <!--The content below is only a placeholder and can be replaced.-->
-<div style="text-align:center">
-  <h1>
+<div >
+    <button mat-button [matMenuTriggerFor]="menu" >Menu</button>
+    <mat-menu #menu="matMenu">
+      <button routerLink="/" mat-menu-item>Hem</button>
+      <button routerLink="/procedurer" mat-menu-item>Procedurer</button>
+      <button routerLink="/regler"mat-menu-item>Regler</button>
+    </mat-menu>
+  <h1 style="text-align:center">
     Welcome to {{ title }}!
   </h1>
   <router-outlet></router-outlet>
 </div>
 
-<nav>
-  <a routerLink="/procedurer">Procedurer</a>
-  <a routerLink="/regler">Regler</a>
-  <a routerLink="/">Hem</a>
-</nav>
+
+
+<br/>
+<hr/>
 <app-messages></app-messages>
 

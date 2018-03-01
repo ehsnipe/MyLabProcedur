@@ -24,7 +24,6 @@ export class ProcedurService {
     private messageService: MessageService) { }
 
   getProcedurer(): Observable<Procedur[]> {
-    this.messageService.add('ProcedurService: fetched procedurer');
     return this.http.get<Procedur[]>(this.procedurUrl);
   }
 
@@ -36,6 +35,6 @@ export class ProcedurService {
 
   /** Log a message with the MessageService */
   private log(message: string) {
-      this.messageService.add('HeroService: ' + message);
+      this.messageService.add('ProcedurService: ' + message);
   }
 }

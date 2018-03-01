@@ -1,22 +1,39 @@
-<p>Regler</p>
-<table *ngIf=regler >
-  <thead>
-      <tr>
-          <th>Regel</th>
-          <th>Fakt</th>
-          <th>Start</th>
-          <th>Slut</th>
-      </tr>
-  </thead>
-  <tbody *ngFor="let item of regler ">
-      <tr>
-          <td>{{item.RegelTypeName?.RegelTypeName}}</td>
-          <td>{{item.Fakt}}</td>
-          <td>{{item.StartAntal}}</td>
-          <td>{{item.SlutAntal}}</td>
-      </tr>
-  </tbody>
-  <mark>Antal rader: {{regler.length}}</mark>
-  
-</table>
-
+<h2>Regler</h2>
+<br/>
+<!--<div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+</div> -->
+<button mat-raised-button (click)="openDialog()">Skapa ny regel</button>
+<div  *ngIf=regler >
+        <mat-table [dataSource]=regler>
+                <!-- RegelTypeName Column -->
+                <ng-container matColumnDef="RegelTypeName">
+                       <mat-header-cell *matHeaderCellDef> RegelTypeName </mat-header-cell>
+                       <mat-cell *matCellDef="let element"> {{element.RegelTypeName?.RegelTypeName}} </mat-cell>
+                     </ng-container>
+                 
+                     <!-- Fakt Column -->
+                     <ng-container matColumnDef="Fakt">
+                       <mat-header-cell *matHeaderCellDef> Fakt </mat-header-cell>
+                       <mat-cell *matCellDef="let element"> {{element.Fakt}} </mat-cell>
+                     </ng-container>
+               
+                         <!-- StartAntal Column -->
+                         <ng-container matColumnDef="StartAntal">
+                               <mat-header-cell *matHeaderCellDef> StartAntal </mat-header-cell>
+                               <mat-cell *matCellDef="let element"> {{element.StartAntal}} </mat-cell>
+                             </ng-container>
+                 
+                     <!-- SlutAntal Column -->
+                     <ng-container matColumnDef="SlutAntal">
+                       <mat-header-cell *matHeaderCellDef> SlutAntal </mat-header-cell>
+                       <mat-cell *matCellDef="let element"> {{element.SlutAntal}} </mat-cell>
+                     </ng-container>
+                 
+                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+               </mat-table>
+               <mark>Antal rader: {{regler.length}}</mark>
+</div>
