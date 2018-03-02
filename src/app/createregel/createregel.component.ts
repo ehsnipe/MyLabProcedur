@@ -5,6 +5,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { RegelService } from '../services/regel.service';
 import { Regel } from '../view-regler/regel';
 import { RegelType } from '../view-regler/regeltype';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-createregel',
@@ -20,7 +21,7 @@ export class CreateregelComponent implements OnInit {
   faktText: string;
   optionSelected: any;
 
-  constructor(private regelService: RegelService,
+  constructor(private router: Router, private regelService: RegelService,
     public dialogRef: MatDialogRef<CreateregelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
@@ -38,10 +39,12 @@ export class CreateregelComponent implements OnInit {
                   StartAntal: this.startVal, SlutAntal: this.slutVal, Fakt: this.faktText,
                   DateCreated: new Date, UpdatedByUserId: 'prew'};
 
-    this.regelService.createRegel(this.regel).subscribe();
-    console.log('Added');
-    this.dialogRef.close();
+    this.regelService.createRegel(this.regel).subscribe(() => {
+      console.log('Added');
+      this.dialogRef.close();
+    });
   }
+
   cancel() {
     this.dialogRef.close();
   }
