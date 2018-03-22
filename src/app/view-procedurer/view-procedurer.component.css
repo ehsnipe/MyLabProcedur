@@ -1,0 +1,27 @@
+.example-container {
+    display: flex;
+    flex-direction: column;
+    min-width: 300px;
+  }
+  
+  .mat-table {
+    overflow: auto;
+    max-height: 500px;
+  }
+
+  .mat-header-row {
+    position: sticky;
+    top: 0;
+    background: rgb(218, 233, 245);
+  }
+  .mat-header-cell.mat-sort-header-sorted {
+    color: black;
+  }
+  
+  .highlight{
+    background: rgb(179, 175, 235); 
+  }
+
+  .even{
+    background: rgb(216, 236, 240); 
+  }

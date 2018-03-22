@@ -16,8 +16,8 @@ const httpOptions = {
 @Injectable()
 export class RegelService {
 
-  private regelUrl = 'http://localhost:2311/api/Regel';  // URL to web api
-  private regelTypUrl = 'http://localhost:2311/api/RegelType';
+  private regelUrl = 'http://localhost:8087/api/Regel';  // URL to web api
+  private regelTypUrl = 'http://localhost:8087/api/RegelType';
 
   constructor(
     private http: HttpClient,

@@ -4,7 +4,36 @@ import {HttpClientModule} from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatDialogModule} from '@angular/material';
+import {MatButtonModule, MatCheckboxModule, MatMenuModule, MatTableModule,  MatDialogModule,
+        MatInputModule, MatRippleModule,
+        MatAutocompleteModule,
+        MatButtonToggleModule,
+        MatCardModule,
+        MatChipsModule,
+        MatDatepickerModule,
+        MatDividerModule,
+        MatExpansionModule,
+        MatGridListModule,
+        MatIconModule,
+        MatListModule,
+        MatNativeDateModule,
+        MatPaginatorModule,
+        MatProgressBarModule,
+        MatProgressSpinnerModule,
+        MatRadioModule,
+        MatSelectModule,
+        MatSidenavModule,
+        MatSliderModule,
+        MatSlideToggleModule,
+        MatSnackBarModule,
+        MatSortModule,
+        MatStepperModule,
+        MatTabsModule,
+        MatToolbarModule,
+        MatTooltipModule,
+        } from '@angular/material';
+
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
 import { NavmenuComponent } from './app/navmenu/navmenu.component';
@@ -12,12 +41,14 @@ import { ViewProcedurerComponent } from './view-procedurer/view-procedurer.compo
 import { AppRoutingModule } from './/app-routing.module';
 
 import { ProcedurService } from './services/procedur.service';
+import {LogService, LogEvent } from './services/log.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { ViewReglerComponent } from './view-regler/view-regler.component';
 import { RegelService } from './services/regel.service';
 import { CreateprocedurComponent } from './createprocedur/createprocedur.component';
 import { CreateregelComponent } from './createregel/createregel.component';
+import { RegelTesterComponent } from './regel-tester/regel-tester.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +58,8 @@ import { CreateregelComponent } from './createregel/createregel.component';
     MessagesComponent,
     ViewReglerComponent,
     CreateprocedurComponent,
-    CreateregelComponent
+    CreateregelComponent,
+    RegelTesterComponent
   ],
   imports: [
     BrowserModule,
@@ -35,9 +67,35 @@ import { CreateregelComponent } from './createregel/createregel.component';
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MatButtonModule, MatCheckboxModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatDialogModule
+    MatButtonModule, MatCheckboxModule, MatMenuModule, MatTableModule, MatFormFieldModule, MatDialogModule,
+    MatInputModule, MatRippleModule,
+    MatAutocompleteModule,
+    MatButtonToggleModule,
+    MatCardModule,
+    MatChipsModule,
+    MatDatepickerModule,
+    MatDividerModule,
+    MatExpansionModule,
+    MatGridListModule,
+    MatIconModule,
+    MatListModule,
+    MatNativeDateModule,
+    MatPaginatorModule,
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatRadioModule,
+    MatSelectModule,
+    MatSidenavModule,
+    MatSliderModule,
+    MatSlideToggleModule,
+    MatSnackBarModule,
+    MatSortModule,
+    MatStepperModule,
+    MatTabsModule,
+    MatToolbarModule,
+    MatTooltipModule,
   ],
-  providers: [ProcedurService, MessageService, RegelService],
+  providers: [ProcedurService, MessageService, RegelService, LogService, LogEvent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

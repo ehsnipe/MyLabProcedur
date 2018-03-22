@@ -1,6 +1,9 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
+import {FormControl, Validators} from '@angular/forms';
+import {ErrorStateMatcher} from '@angular/material';
 
 import { RegelService } from '../services/regel.service';
 import { Regel } from '../view-regler/regel';

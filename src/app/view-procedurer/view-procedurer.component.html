@@ -5,24 +5,25 @@
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 </div> -->
-<div *ngIf=procedurer>
-<mat-table [dataSource]=procedurer>
+<div *ngIf=dataSource>
+<div class="example-container mat-elevation-z8">
+<mat-table [dataSource]=dataSource  matSort >
  <!-- Position Column -->
  <ng-container matColumnDef="Organomrade">
-        <mat-header-cell *matHeaderCellDef> Organomrade </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.Organomrade}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Organomrade </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.Organomrade?.SourceGroupDescription}} </mat-cell>
       </ng-container>
   
       <!-- Name Column -->
       <ng-container matColumnDef="Provmaterial">
-        <mat-header-cell *matHeaderCellDef> Provmaterial </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.Provmaterial}} </mat-cell>
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Provmaterial </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.Provmaterial?.SourceDescription}} </mat-cell>
       </ng-container>
 
           <!-- Procedure Column -->
           <ng-container matColumnDef="Procedure">
-                <mat-header-cell *matHeaderCellDef> Procedure </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.Procedure}} </mat-cell>
+                <mat-header-cell *matHeaderCellDef mat-sort-header> Procedure </mat-header-cell>
+                <mat-cell *matCellDef="let element"> {{element.Procedur?.Beskrivning}} </mat-cell>
               </ng-container>
   
       <!-- IsDoctor Column -->
@@ -54,9 +55,16 @@
             <mat-header-cell *matHeaderCellDef> RegionNamn </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.Region.RegionNamn}} </mat-cell>
           </ng-container>
-  
+
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+      <mat-row *matRowDef="let row; columns: displayedColumns;"
+      [ngClass]="{
+        'highlight': selectedRowIndex == row.ProcedurerId
+      }"
+      (click)="highlight(row)"></mat-row>
+
 </mat-table>
-<mark>Antal rader: {{procedurer.length}}</mark>
+</div>
+<p>Antal rader: {{dataSource.data.length}}</p>
 </div>

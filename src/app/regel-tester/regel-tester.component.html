@@ -1,0 +1,32 @@
+<div class="regeltest-container">
+  <mat-form-field>
+    <input matInput required [(ngModel)]="oraganArea" type="text" placeholder="Organområde">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required [(ngModel)]="provMaterial" type="text" placeholder="Provmaterial">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required [(ngModel)]="procedur" type="text" placeholder="Procedur">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required [(ngModel)]="isDoctor" type="text" placeholder="Kloss skall vara läkare">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required [(ngModel)]="faktureras" type="text" placeholder="Faktureras">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required [(ngModel)]="atenaName" type="text" placeholder="Atena benämn">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required [(ngModel)]="antal" type="number" placeholder="Antal">
+  </mat-form-field>
+
+  <mat-form-field *ngIf='regelTypes' >
+    <mat-select placeholder="Regel" class='select-option' required [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)' >
+      <mat-option  *ngFor='let opt of regelTypes'  [value]="opt.RegelTypeId">{{opt.RegelTypeName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button (click)='testRegel()'>Testa regel</button>
+  <button (click)='cancel()'>Avbryt</button>
+</div>

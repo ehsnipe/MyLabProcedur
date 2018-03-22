@@ -1,8 +1,8 @@
-export class Procedur {
+export class Procedurer {
     ProcedurerId: number;
     region: Region;
-    Organomrade: string;
-    Procedure: string;
+    Organomrade: OrganArea;
+    Procedure: Procedur;
     IsDoctor: boolean;
     Faktureras: string;
     AtenaNameing: string;
@@ -20,3 +20,20 @@ export class Procedur {
     RegelTypeId: number;
     RegelTypeName: string;
   }
+class OrganArea {
+  SourceGroupCode: string;
+  SourceGroupDescription: string;
+  DateCreated: Date;
+  LastUpdated: Date;
+  UpdatedByUserId: string;
+}
+class Procedur {
+  Kod: string;
+  Beskrivning: string;
+  Giltig: boolean;
+  GiltigFrom: Date;
+  GiltigTo: Date;
+  DateCreated: Date;
+  LastUpdate: Date;
+  UpdatedByUserId: string;
+}

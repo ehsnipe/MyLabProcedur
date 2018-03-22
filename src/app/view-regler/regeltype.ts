@@ -1,4 +1,4 @@
 export class RegelType {
-    regelTypeId: number;
-    regelTypeName: string;
+    RegelTypeId: number;
+    RegelTypeName: string;
 }

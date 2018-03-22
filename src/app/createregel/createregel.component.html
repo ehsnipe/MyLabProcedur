@@ -1,12 +1,20 @@
-<div>
-  <p>Regel:
-    <select name='Regel' *ngIf='regelTypes' class='select-option' required [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)' >
-      <option class='option' *ngFor='let opt of regelTypes' [value] = "opt.RegelTypeId">{{opt.RegelTypeName}}</option>
-    </select>
-  </p>
-  <p>Fakt: <input [(ngModel)]="faktText" type="text"></p>
-  <p>Start: <input [(ngModel)]="startVal" type="number"/> </p>
-  <p>Slut: <input [(ngModel)]="slutVal" type="number"/></p>
-</div>  
-<button (click)='createRegel()'>Skapa regel</button>
-<button (click)='cancel()'>Avbryt</button>
+<div class="regelcreate-container">
+  <mat-form-field>
+    <input matInput required [(ngModel)]="faktText" type="text" placeholder="Fakt">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required [(ngModel)]="startVal" type="number" placeholder="Start">
+  </mat-form-field>
+  <mat-form-field>
+    <input matInput required [(ngModel)]="slutVal" type="number" placeholder="Slut">
+  </mat-form-field>
+
+  <mat-form-field *ngIf='regelTypes' >
+    <mat-select placeholder="Regel" class='select-option' required [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)' >
+      <mat-option  *ngFor='let opt of regelTypes'  [value]="opt.RegelTypeId">{{opt.RegelTypeName}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <button (click)='createRegel()'>Skapa regel</button>
+  <button (click)='cancel()'>Avbryt</button>
+</div>

@@ -7,22 +7,23 @@
 </div> -->
 <button mat-raised-button (click)="openDialog()">Skapa ny regel</button>
 <div  *ngIf=regler >
-        <mat-table [dataSource]=regler>
+    <div class="example-container mat-elevation-z8">
+        <mat-table [dataSource]=sortedData matSort (matSortChange)="sortData($event)">
                 <!-- RegelTypeName Column -->
                 <ng-container matColumnDef="RegelTypeName">
-                       <mat-header-cell *matHeaderCellDef> RegelTypeName </mat-header-cell>
-                       <mat-cell *matCellDef="let element"> {{element.RegelTypeName?.RegelTypeName}} </mat-cell>
+                       <mat-header-cell *matHeaderCellDef mat-sort-header="RegelTypeName"> RegelTypeName </mat-header-cell>
+                       <mat-cell *matCellDef="let element"> {{element.RegelTypeName.RegelTypeName}} </mat-cell>
                      </ng-container>
                  
                      <!-- Fakt Column -->
                      <ng-container matColumnDef="Fakt">
-                       <mat-header-cell *matHeaderCellDef> Fakt </mat-header-cell>
+                       <mat-header-cell *matHeaderCellDef mat-sort-header="Fakt"> Fakt </mat-header-cell>
                        <mat-cell *matCellDef="let element"> {{element.Fakt}} </mat-cell>
                      </ng-container>
                
                          <!-- StartAntal Column -->
-                         <ng-container matColumnDef="StartAntal">
-                               <mat-header-cell *matHeaderCellDef> StartAntal </mat-header-cell>
+                         <ng-container matColumnDef="StartAntal" >
+                               <mat-header-cell *matHeaderCellDef  mat-sort-header="StartAntal"> StartAntal </mat-header-cell>
                                <mat-cell *matCellDef="let element"> {{element.StartAntal}} </mat-cell>
                              </ng-container>
                  
@@ -33,7 +34,13 @@
                      </ng-container>
                  
                      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                     <mat-row *matRowDef="let row; columns: displayedColumns;"
+                     [ngClass]="{
+                      'highlight': selectedRowIndex == row.RegelId
+                    }"
+                    (click)="highlight(row)"
+                    ></mat-row>
                </mat-table>
-               <mark>Antal rader: {{regler.length}}</mark>
+              </div>
+               <p>Antal rader: {{regler.length}}</p>
 </div>
