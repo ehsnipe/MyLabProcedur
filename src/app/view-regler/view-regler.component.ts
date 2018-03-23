@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatSort, Sort} from '@angular/material';
 
 import { RegelService } from '../services/regel.service';
-import { Regel } from './regel';
+import { Regel } from '../model/regel';
 import { CreateregelComponent} from '../createregel/createregel.component';
 
 @Component({

@@ -42,6 +42,7 @@ import { AppRoutingModule } from './/app-routing.module';
 
 import { ProcedurService } from './services/procedur.service';
 import {LogService, LogEvent } from './services/log.service';
+import { FargningService } from './services/fargning.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { ViewReglerComponent } from './view-regler/view-regler.component';
@@ -49,6 +50,7 @@ import { RegelService } from './services/regel.service';
 import { CreateprocedurComponent } from './createprocedur/createprocedur.component';
 import { CreateregelComponent } from './createregel/createregel.component';
 import { RegelTesterComponent } from './regel-tester/regel-tester.component';
+import { ViewFargningComponent } from './view-fargning/view-fargning.component';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,8 @@ import { RegelTesterComponent } from './regel-tester/regel-tester.component';
     ViewReglerComponent,
     CreateprocedurComponent,
     CreateregelComponent,
-    RegelTesterComponent
+    RegelTesterComponent,
+    ViewFargningComponent
   ],
   imports: [
     BrowserModule,
@@ -95,7 +98,8 @@ import { RegelTesterComponent } from './regel-tester/regel-tester.component';
     MatToolbarModule,
     MatTooltipModule,
   ],
-  providers: [ProcedurService, MessageService, RegelService, LogService, LogEvent],
+  providers: [ProcedurService, MessageService, RegelService, 
+              LogService, LogEvent, FargningService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

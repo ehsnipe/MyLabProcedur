@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcedurService } from '../services/procedur.service';
-import { Procedurer } from '../view-procedurer/procedur';
+import { Procedurer } from '../model/procedur';
 
 @Component({
   selector: 'app-createprocedur',

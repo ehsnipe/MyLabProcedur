@@ -3,9 +3,9 @@ import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError,  map, tap} from 'rxjs/operators';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { MessageService } from '../message.service';
-import { Regel } from '../view-regler/regel';
+import { Regel } from '../model/regel';
 import { Observable } from 'rxjs/Observable';
-import { RegelType } from '../view-regler/regeltype';
+import { RegelTypen } from '../model/regeltyp';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -27,8 +27,8 @@ export class RegelService {
     return this.http.get<Regel[]>(this.regelUrl);
   }
 
-  getRegelTypes(): Observable<RegelType[]> {
-    return this.http.get<RegelType[]>(this.regelTypUrl);
+  getRegelTypes(): Observable<RegelTypen[]> {
+    return this.http.get<RegelTypen[]>(this.regelTypUrl);
   }
 
   createRegel(regel: Regel) {
@@ -39,7 +39,7 @@ export class RegelService {
 
   /** Log a message with the MessageService */
   private log(message: string) {
-      this.messageService.add('HeroService: ' + message);
+      this.messageService.add('RegelService: ' + message);
   }
 
 }

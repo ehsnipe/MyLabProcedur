@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
 import {MatTableDataSource, MatSort} from '@angular/material';
 
-import {Procedurer} from './procedur';
+import {Procedurer} from '../model/procedur';
 import {ProcedurService} from '../services/procedur.service';
 
 @Component({

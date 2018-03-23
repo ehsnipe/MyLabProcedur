@@ -1,3 +1,7 @@
+import { Region } from './region';
+import { RegelTypen } from './regeltyp';
+
+
 export class Procedurer {
     ProcedurerId: number;
     region: Region;
@@ -12,14 +16,6 @@ export class Procedurer {
     UpdatedByUserId: string;
    }
 
-   class Region {
-    RegionId: number;
-    RegionNamn: string;
-  }
-  class RegelTypen {
-    RegelTypeId: number;
-    RegelTypeName: string;
-  }
 class OrganArea {
   SourceGroupCode: string;
   SourceGroupDescription: string;

@@ -6,7 +6,7 @@ import {FormControl, Validators} from '@angular/forms';
 import {ErrorStateMatcher} from '@angular/material';
 
 import { RegelService } from '../services/regel.service';
-import { Regel } from '../view-regler/regel';
+import { Regel } from '../model/regel';
 import { RegelType } from '../view-regler/regeltype';
 import { Router } from '@angular/router';
 
@@ -22,7 +22,7 @@ export class CreateregelComponent implements OnInit {
   startVal: number;
   slutVal: number;
   faktText: string;
-  optionSelected: any;
+  optionSelected: number;
 
   constructor(private router: Router, private regelService: RegelService,
     public dialogRef: MatDialogRef<CreateregelComponent>,
@@ -38,9 +38,9 @@ export class CreateregelComponent implements OnInit {
 
   createRegel() {
 
-    this.regel = {RegelId: 0,  RegelTypeName: {regelTypeId: this.optionSelected, regelTypeName: 'NA'},
-                  StartAntal: this.startVal, SlutAntal: this.slutVal, Fakt: this.faktText,
-                  DateCreated: new Date, UpdatedByUserId: 'prew'};
+    this.regel = new Regel();
+    this.regel.RegelTypeName = {RegelTypeId: 0, RegelTypeName: 'Name'};
+    this.regel.UpdatedByUserId = 'perw';
 
     this.regelService.createRegel(this.regel).subscribe(() => {
       console.log('Added');
@@ -53,7 +53,7 @@ export class CreateregelComponent implements OnInit {
   }
 
   onOptionsSelected(event) {
-    this.optionSelected = event;
+    this.optionSelected = 0;
   }
 
 }

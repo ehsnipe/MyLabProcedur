@@ -1,0 +1,55 @@
+<h2>Färgningar</h2>
+<br/>
+<!--<div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+    </mat-form-field>
+</div> -->
+<div *ngIf=dataSource>
+  <div class="example-container mat-elevation-z8">
+    <mat-table [dataSource]="dataSource" matSort matSortActive="Fargning" matSortDirection="asc">
+      <!-- Fargning Column -->
+      <ng-container matColumnDef="Fargning">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Fargning </mat-header-cell>
+        <mat-cell *matCellDef="let FargningsTyp"> {{FargningsTyp.Fargning}} </mat-cell>
+      </ng-container>
+
+      <!-- FargningsKod Column -->
+      <ng-container matColumnDef="FargningsKod">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> FargningsKod </mat-header-cell>
+        <mat-cell *matCellDef="let FargningsTyp"> {{FargningsTyp.FargningsKod}} </mat-cell>
+      </ng-container>
+
+      <!-- Arbetsgrupp Column -->
+      <ng-container matColumnDef="Arbetsgrupp">
+        <mat-header-cell *matHeaderCellDef mat-sort-header> Arbetsgrupp </mat-header-cell>
+        <mat-cell *matCellDef="let FargningsTyp"> {{FargningsTyp.Arbetsgrupp.Arbetsgrupp}} </mat-cell>
+      </ng-container>
+
+      <!-- AthenaName Column -->
+      <ng-container matColumnDef="AthenaName">
+        <mat-header-cell *matHeaderCellDef> AthenaName </mat-header-cell>
+        <mat-cell *matCellDef="let FargningsTyp"> {{FargningsTyp.AthenaName}} </mat-cell>
+      </ng-container>
+
+      <!-- RegelName Column -->
+      <ng-container matColumnDef="RegelName">
+        <mat-header-cell *matHeaderCellDef> RegelName </mat-header-cell>
+        <mat-cell *matCellDef="let FargningsTyp"> {{FargningsTyp.RegelName.RegelTypeName}} </mat-cell>
+      </ng-container>
+
+      <!-- RegionNamn Column -->
+      <ng-container matColumnDef="RegionNamn">
+        <mat-header-cell *matHeaderCellDef> RegionNamn </mat-header-cell>
+        <mat-cell *matCellDef="let FargningsTyp"> {{FargningsTyp.Region.RegionNamn}} </mat-cell>
+      </ng-container>
+
+      <mat-header-row *matHeaderRowDef="displayedColumns" color="primary"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;" [ngClass]="{
+        'highlight': selectedRowIndex == row.FargningId
+      }" (click)="highlight(row)"></mat-row>
+
+    </mat-table>
+  </div>
+  <p>Antal rader: {{dataSource.data.length}}</p>
+</div>
