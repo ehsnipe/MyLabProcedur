@@ -51,6 +51,7 @@ import { CreateprocedurComponent } from './createprocedur/createprocedur.compone
 import { CreateregelComponent } from './createregel/createregel.component';
 import { RegelTesterComponent } from './regel-tester/regel-tester.component';
 import { ViewFargningComponent } from './view-fargning/view-fargning.component';
+import { ViewFargningreglerComponent } from './view-fargningregler/view-fargningregler.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,8 @@ import { ViewFargningComponent } from './view-fargning/view-fargning.component';
     CreateprocedurComponent,
     CreateregelComponent,
     RegelTesterComponent,
-    ViewFargningComponent
+    ViewFargningComponent,
+    ViewFargningreglerComponent
   ],
   imports: [
     BrowserModule,

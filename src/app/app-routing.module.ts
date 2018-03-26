@@ -7,6 +7,7 @@ import { CreateprocedurComponent } from './createprocedur/createprocedur.compone
 import { CreateregelComponent } from './createregel/createregel.component';
 import {RegelTesterComponent} from './regel-tester/regel-tester.component';
 import { ViewFargningComponent } from './view-fargning/view-fargning.component';
+import { ViewFargningreglerComponent } from './view-fargningregler/view-fargningregler.component';
 
 const routes: Routes = [
   { path: 'procedurer', component: ViewProcedurerComponent },
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'procedurer/skapa', component: CreateprocedurComponent },
   { path: 'regler/skapa', component: CreateregelComponent },
   { path: 'regler/app-regel-tester', component: RegelTesterComponent },
-  { path: 'fargning/fargningar', component: ViewFargningComponent}
+  { path: 'fargning/fargningar', component: ViewFargningComponent},
+  { path: 'fargning/fargningregler', component: ViewFargningreglerComponent}
 ];
 
 

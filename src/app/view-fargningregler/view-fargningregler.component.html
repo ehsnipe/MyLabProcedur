@@ -1,0 +1,42 @@
+<h2>Färgningsregler</h2>
+<br/>
+
+<button mat-raised-button (click)="openDialog()">Skapa ny färgningsregel</button>
+<div  *ngIf=dataSource >
+    <div class="example-container mat-elevation-z8">
+        <mat-table [dataSource]=dataSource matSort >
+                <!-- RegelTypeName Column -->
+                <ng-container matColumnDef="RegelTypeName">
+                       <mat-header-cell *matHeaderCellDef mat-sort-header="RegelTypeName"> RegelTypeName </mat-header-cell>
+                       <mat-cell *matCellDef="let element"> {{element.RegelTypeName.RegelTypeName}} </mat-cell>
+                     </ng-container>
+                 
+                     <!-- Fakt Column -->
+                     <ng-container matColumnDef="Fakt">
+                       <mat-header-cell *matHeaderCellDef mat-sort-header="Fakt"> Fakt </mat-header-cell>
+                       <mat-cell *matCellDef="let element"> {{element.Fakt}} </mat-cell>
+                     </ng-container>
+               
+                         <!-- StartAntal Column -->
+                         <ng-container matColumnDef="StartAntal" >
+                               <mat-header-cell *matHeaderCellDef  mat-sort-header="StartAntal"> StartAntal </mat-header-cell>
+                               <mat-cell *matCellDef="let element"> {{element.StartAntal}} </mat-cell>
+                             </ng-container>
+                 
+                     <!-- SlutAntal Column -->
+                     <ng-container matColumnDef="SlutAntal">
+                       <mat-header-cell *matHeaderCellDef> SlutAntal </mat-header-cell>
+                       <mat-cell *matCellDef="let element"> {{element.SlutAntal}} </mat-cell>
+                     </ng-container>
+                 
+                     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                     <mat-row *matRowDef="let row; columns: displayedColumns;"
+                     [ngClass]="{
+                      'highlight': selectedRowIndex == row.FargRegelId
+                    }"
+                    (click)="highlight(row)"
+                    ></mat-row>
+               </mat-table>
+              </div>
+               <p>Antal rader: {{dataSource.data.length}}</p>
+</div>
