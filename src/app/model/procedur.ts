@@ -16,14 +16,15 @@ export class Procedurer {
     UpdatedByUserId: string;
    }
 
-class OrganArea {
+export class OrganArea {
   SourceGroupCode: string;
   SourceGroupDescription: string;
   DateCreated: Date;
   LastUpdated: Date;
   UpdatedByUserId: string;
 }
-class Procedur {
+
+export class Procedur {
   Kod: string;
   Beskrivning: string;
   Giltig: boolean;

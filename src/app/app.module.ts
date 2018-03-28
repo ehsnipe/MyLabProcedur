@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {HttpClientModule} from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {MatButtonModule, MatCheckboxModule, MatMenuModule, MatTableModule,  MatDialogModule,
@@ -52,6 +52,7 @@ import { CreateregelComponent } from './createregel/createregel.component';
 import { RegelTesterComponent } from './regel-tester/regel-tester.component';
 import { ViewFargningComponent } from './view-fargning/view-fargning.component';
 import { ViewFargningreglerComponent } from './view-fargningregler/view-fargningregler.component';
+import { FiltertableComponent } from './test/filtertable/filtertable.component';
 
 @NgModule({
   declarations: [
@@ -64,11 +65,13 @@ import { ViewFargningreglerComponent } from './view-fargningregler/view-fargning
     CreateregelComponent,
     RegelTesterComponent,
     ViewFargningComponent,
-    ViewFargningreglerComponent
+    ViewFargningreglerComponent,
+    FiltertableComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
+    ReactiveFormsModule,
     AppRoutingModule,
     HttpClientModule,
     BrowserAnimationsModule,

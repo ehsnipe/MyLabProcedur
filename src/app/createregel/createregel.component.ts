@@ -7,8 +7,9 @@ import {ErrorStateMatcher} from '@angular/material';
 
 import { RegelService } from '../services/regel.service';
 import { Regel } from '../model/regel';
-import { RegelType } from '../view-regler/regeltype';
+import { RegelType } from '../model/regeltype';
 import { Router } from '@angular/router';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-createregel',
@@ -23,6 +24,7 @@ export class CreateregelComponent implements OnInit {
   slutVal: number;
   faktText: string;
   optionSelected: number;
+  optionTextSelected: string;
 
   constructor(private router: Router, private regelService: RegelService,
     public dialogRef: MatDialogRef<CreateregelComponent>,
@@ -39,8 +41,11 @@ export class CreateregelComponent implements OnInit {
   createRegel() {
 
     this.regel = new Regel();
-    this.regel.RegelTypeName = {RegelTypeId: 0, RegelTypeName: 'Name'};
+    this.regel.RegelTypeName = {RegelTypeId: this.optionSelected, RegelTypeName: this.optionTextSelected};
     this.regel.UpdatedByUserId = 'perw';
+    this.regel.Fakt = this.faktText;
+    this.regel.StartAntal = this.startVal;
+    this.regel.SlutAntal = this.slutVal;
 
     this.regelService.createRegel(this.regel).subscribe(() => {
       console.log('Added');
@@ -53,7 +58,9 @@ export class CreateregelComponent implements OnInit {
   }
 
   onOptionsSelected(event) {
-    this.optionSelected = 0;
+    console.log('Hello');
+   // this.optionSelected = event.RegelTypeId;
+    // this.optionTextSelected = event.RegelTypeName;
   }
 
 }

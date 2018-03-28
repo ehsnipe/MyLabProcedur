@@ -7,23 +7,35 @@
 </div> -->
 <div *ngIf=dataSource>
 <div class="example-container mat-elevation-z8">
+  <div class="example-header">
+    <mat-form-field>
+      <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="myFilterValue" placeholder="Filter">
+    </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field>
+      <mat-select placeholder="Organomrade" [formControl]="organs" multiple>
+        <mat-option *ngFor="let organ of organList" [value]="organ" (click)="applyOrganSelection()">{{organ}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
 <mat-table [dataSource]=dataSource  matSort >
  <!-- Position Column -->
- <ng-container matColumnDef="Organomrade">
+ <ng-container matColumnDef="SourceGroupDescription">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Organomrade </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.Organomrade?.SourceGroupDescription}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.SourceGroupDescription}} </mat-cell>
       </ng-container>
   
       <!-- Name Column -->
       <ng-container matColumnDef="Provmaterial">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Provmaterial </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.Provmaterial?.SourceDescription}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.Provmaterial}} </mat-cell>
       </ng-container>
 
           <!-- Procedure Column -->
           <ng-container matColumnDef="Procedure">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Procedure </mat-header-cell>
-                <mat-cell *matCellDef="let element"> {{element.Procedur?.Beskrivning}} </mat-cell>
+                <mat-cell *matCellDef="let element"> {{element.ProcedurBeskrivning}} </mat-cell>
               </ng-container>
   
       <!-- IsDoctor Column -->
@@ -47,13 +59,13 @@
                         <!-- RegelTypeName Column -->
       <ng-container matColumnDef="RegelTypeName">
             <mat-header-cell *matHeaderCellDef> RegelTypeName </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.RegelTypen?.RegelTypeName}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.RegelTypeName}} </mat-cell>
           </ng-container>
 
                 <!-- RegionNamn Column -->
       <ng-container matColumnDef="RegionNamn">
             <mat-header-cell *matHeaderCellDef> RegionNamn </mat-header-cell>
-            <mat-cell *matCellDef="let element"> {{element.Region.RegionNamn}} </mat-cell>
+            <mat-cell *matCellDef="let element"> {{element.RegionNamn}} </mat-cell>
           </ng-container>
 
       <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

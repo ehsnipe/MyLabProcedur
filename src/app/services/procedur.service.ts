@@ -7,6 +7,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 
 import { MessageService } from '../message.service';
 import { Procedurer } from '../model/procedur';
+import {ProcedurerFlat} from '../model/procedurer-flat';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -18,6 +19,7 @@ const httpOptions = {
 export class ProcedurService {
 
   private procedurUrl = 'http://localhost:8087/api/Procedurer';  // URL to web api
+  private procedurFlatUrl = 'http://localhost:8087/api/ProcedurFlat';
 
   constructor(
     private http: HttpClient,
@@ -25,6 +27,25 @@ export class ProcedurService {
 
   getProcedurer(): Observable<Procedurer[]> {
     return this.http.get<Procedurer[]>(this.procedurUrl);
+  }
+
+  getFlatProcedurer(): Observable<ProcedurerFlat[]> {
+    return this.http.get<ProcedurerFlat[]>(this.procedurFlatUrl);
+  }
+
+  getUniqueOrganArea(): Observable<string[]> {
+    // return of(['Hud', 'etc']);
+    const resArr = [];
+    this.getFlatProcedurer().subscribe(data => {
+      data.filter(function(item) {
+        const i = resArr.findIndex(x => x === item.SourceGroupDescription);
+        if (i <= -1) {
+              resArr.push(item.SourceGroupDescription);
+        }
+        return null;
+      });
+    });
+    return of(resArr);
   }
 
   createProcedure(procedur: Procedurer) {
