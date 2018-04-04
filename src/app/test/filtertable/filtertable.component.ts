@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import {MatTableDataSource, MatSort} from '@angular/material';
+import { AppConfig } from '../../app.config';
 
 @Component({
   selector: 'app-filtertable',
@@ -11,6 +12,10 @@ export class FiltertableComponent implements AfterViewInit, OnInit {
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatSort) sort: MatSort;
+
+  protected apiServer = AppConfig.settings.apiServer;
+
+  constructor(private config: AppConfig) {}
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
@@ -33,6 +38,8 @@ export class FiltertableComponent implements AfterViewInit, OnInit {
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
+
+    console.log(AppConfig.settings);
   }
 }
 // https://stackoverflow.com/questions/48506606/custom-filter-in-mat-table

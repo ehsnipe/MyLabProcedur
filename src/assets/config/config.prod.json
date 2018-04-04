@@ -1,0 +1,21 @@
+{
+    "env": {
+    "name": "PROD"
+    },
+    "appInsights": {
+    "instrumentationKey": "ProdKey"
+    },
+    "logging": {
+    "console": true,
+    "appInsights": true
+    },
+    "aad": {
+    "requireAuth": true,
+    "tenant": "ProdTenant",
+    "clientId": "ProdClientId"
+    },
+    "apiServer": {
+    "metadata": "https://prod.demo.com/api/v1.0/",
+    "rule": "https://prod.demo.com/api/v1.0/"
+    }
+}

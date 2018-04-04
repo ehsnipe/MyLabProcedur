@@ -18,7 +18,8 @@ const routes: Routes = [
   { path: 'regler/app-regel-tester', component: RegelTesterComponent },
   { path: 'fargning/fargningar', component: ViewFargningComponent},
   { path: 'fargning/fargningregler', component: ViewFargningreglerComponent},
-  { path: 'test/filtering', component: FiltertableComponent}
+  { path: 'test/filtering', component: FiltertableComponent},
+  { path: '**', component: ViewProcedurerComponent }
 ];
 
 

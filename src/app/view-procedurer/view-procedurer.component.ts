@@ -24,7 +24,7 @@ export class ViewProcedurerComponent implements OnInit, AfterViewInit {
   organs = new FormControl();
   myFilterValue = '';
 
-  organList = []; // = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
+  organList = [];
 
   constructor(private procedureService: ProcedurService) { }
 
@@ -32,6 +32,18 @@ export class ViewProcedurerComponent implements OnInit, AfterViewInit {
     this.getProcedurer();
     this.procedureService.getUniqueOrganArea().subscribe(o =>
         this.organList = o);
+
+    this.dataSource.filterPredicate = (data: ProcedurerFlat, filter: string) => {
+      // Transform the data into a lowercase string of all property values.
+      const accumulator = (currentTerm, key) => currentTerm + data[key];
+      const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
+      const transformedFilter = this.myFilterValue.trim().toLowerCase();
+        if (this.organs.value.length < 1) {
+          return dataStr.indexOf(transformedFilter) !== -1;
+        }
+        const filterCheck = dataStr.indexOf(transformedFilter) !== -1 || transformedFilter === '';
+        return this.organs.value.indexOf(data.SourceGroupDescription) > -1 && filterCheck;
+      };
   }
 
   /**
@@ -60,17 +72,7 @@ export class ViewProcedurerComponent implements OnInit, AfterViewInit {
   applyOrganSelection() {
   console.log(this.organs.value);
   console.log(this.myFilterValue);
-    this.dataSource.filterPredicate = (data: ProcedurerFlat, filter: string) => {
-    // Transform the data into a lowercase string of all property values.
-    const accumulator = (currentTerm, key) => currentTerm + data[key];
-    const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
-    const transformedFilter = this.myFilterValue.trim().toLowerCase();
-      if (this.organs.value.length < 1) {
-        return dataStr.indexOf(transformedFilter) !== -1;
-      }
-      const filterCheck = dataStr.indexOf(transformedFilter) !== -1 || transformedFilter === '';
-      return this.organs.value.indexOf(data.SourceGroupDescription) > -1 && filterCheck;
-    };
+
     this.dataSource.filter = ' ';
   }
 

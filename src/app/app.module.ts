@@ -36,7 +36,7 @@ import {MatButtonModule, MatCheckboxModule, MatMenuModule, MatTableModule,  MatD
 import {MatFormFieldModule} from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
-import { NavmenuComponent } from './app/navmenu/navmenu.component';
+// import { NavmenuComponent } from './app/navmenu/navmenu.component';
 import { ViewProcedurerComponent } from './view-procedurer/view-procedurer.component';
 import { AppRoutingModule } from './/app-routing.module';
 
@@ -53,11 +53,11 @@ import { RegelTesterComponent } from './regel-tester/regel-tester.component';
 import { ViewFargningComponent } from './view-fargning/view-fargning.component';
 import { ViewFargningreglerComponent } from './view-fargningregler/view-fargningregler.component';
 import { FiltertableComponent } from './test/filtertable/filtertable.component';
+import { AppConfig } from './app.config';
 
 @NgModule({
   declarations: [
     AppComponent,
-    NavmenuComponent,
     ViewProcedurerComponent,
     MessagesComponent,
     ViewReglerComponent,
@@ -103,8 +103,8 @@ import { FiltertableComponent } from './test/filtertable/filtertable.component';
     MatToolbarModule,
     MatTooltipModule,
   ],
-  providers: [ProcedurService, MessageService, RegelService, 
-              LogService, LogEvent, FargningService],
+  providers: [ProcedurService, MessageService, RegelService,
+              LogService, LogEvent, FargningService, AppConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

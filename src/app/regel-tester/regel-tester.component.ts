@@ -7,9 +7,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegelTesterComponent implements OnInit {
 
+  oraganArea;
+  provMaterial;
+  procedur;
+  isDoctor;
+  faktureras;
+  atenaName;
+  regelTypes;
+  antal;
   constructor() { }
 
   ngOnInit() {
   }
 
+  testRegel() {
+
+  }
+
+  cancel() {
+
+  }
 }

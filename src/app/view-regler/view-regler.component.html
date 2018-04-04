@@ -6,9 +6,16 @@
     </mat-form-field>
 </div> -->
 <button mat-raised-button (click)="openDialog()">Skapa ny regel</button>
-<div  *ngIf=regler >
+<div  *ngIf=dataSource >
     <div class="example-container mat-elevation-z8">
-        <mat-table [dataSource]=sortedData matSort (matSortChange)="sortData($event)">
+        <div>
+            <mat-form-field>
+              <mat-select placeholder="Regler" [formControl]="reglerFC" multiple>
+                <mat-option *ngFor="let regel of uniqueRegelList" [value]="regel" (click)="applyRegelSelection()">{{regel}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+        <mat-table [dataSource]=dataSource matSort (matSortChange)="sortData($event)">
                 <!-- RegelTypeName Column -->
                 <ng-container matColumnDef="RegelTypeName">
                        <mat-header-cell *matHeaderCellDef mat-sort-header="RegelTypeName"> RegelTypeName </mat-header-cell>
@@ -17,13 +24,13 @@
                  
                      <!-- Fakt Column -->
                      <ng-container matColumnDef="Fakt">
-                       <mat-header-cell *matHeaderCellDef mat-sort-header="Fakt"> Fakt </mat-header-cell>
+                       <mat-header-cell *matHeaderCellDef > Fakt </mat-header-cell>
                        <mat-cell *matCellDef="let element"> {{element.Fakt}} </mat-cell>
                      </ng-container>
                
                          <!-- StartAntal Column -->
                          <ng-container matColumnDef="StartAntal" >
-                               <mat-header-cell *matHeaderCellDef  mat-sort-header="StartAntal"> StartAntal </mat-header-cell>
+                               <mat-header-cell *matHeaderCellDef > StartAntal </mat-header-cell>
                                <mat-cell *matCellDef="let element"> {{element.StartAntal}} </mat-cell>
                              </ng-container>
                  
@@ -42,5 +49,5 @@
                     ></mat-row>
                </mat-table>
               </div>
-               <p>Antal rader: {{regler.length}}</p>
+               <p>Antal rader: {{dataSource.data.length}}</p>
 </div>

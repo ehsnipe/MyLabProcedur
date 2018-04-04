@@ -5,6 +5,8 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA, MatTableDataSource, MatSort, S
 import { RegelService } from '../services/regel.service';
 import { Regel } from '../model/regel';
 import { CreateregelComponent} from '../createregel/createregel.component';
+import { FormControl } from '@angular/forms';
+import { RegelType } from '../model/regeltype';
 
 @Component({
   selector: 'app-view-regler',
@@ -13,11 +15,15 @@ import { CreateregelComponent} from '../createregel/createregel.component';
 })
 export class ViewReglerComponent implements OnInit {
   displayedColumns = ['RegelTypeName', 'Fakt', 'StartAntal', 'SlutAntal'];
-  regler: Regel[];
+
   animal: string;
   name: string;
   selectedRowIndex = -1;
-  sortedData;
+
+  dataSource = new MatTableDataSource<Regel>();
+
+  uniqueRegelList = [];
+  reglerFC = new FormControl();
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -37,24 +43,30 @@ export class ViewReglerComponent implements OnInit {
 
   ngOnInit() {
     this.getAllRegels();
+    this.regelService.getUniqueRegel().subscribe(r =>
+      this.uniqueRegelList = r);
   }
 
   private getAllRegels() {
     this.regelService.getRegler().subscribe(r => {
-      this.regler = r;
-      this.sortedData = this.regler.slice();
+      this.dataSource.data = r;
+      this.dataSource.filterPredicate = (data: Regel, filter: string) => {
+        if (this.reglerFC.value.length < 1) {
+          return true;
+        }
+        return this.reglerFC.value.indexOf(data.RegelTypeName.RegelTypeName) > -1;
+      };
     });
   }
 
   sortData(sort: Sort) {
-    console.log('Hit');
-    const data = this.regler.slice();
+    const data = this.dataSource.data.slice();
     if (!sort.active || sort.direction === '') {
-      this.sortedData = data;
+      this.dataSource.data = data;
       return;
     }
 
-    this.sortedData = data.sort((a, b) => {
+    this.dataSource.data = data.sort((a, b) => {
       const isAsc = sort.direction === 'asc';
       switch (sort.active) {
         case 'RegelTypeName': return compare(a.RegelTypeName.RegelTypeName + a.StartAntal.toString(36),
@@ -67,7 +79,9 @@ export class ViewReglerComponent implements OnInit {
     });
   }
 
-
+  applyRegelSelection() {
+    this.dataSource.filter = ' ';
+  }
 
   highlight(row) {
     console.log('RowId: ' + row.RegelId);

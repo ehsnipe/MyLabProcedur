@@ -33,4 +33,7 @@ export class ViewFargningreglerComponent implements OnInit {
     console.log('RowId: ' + row.FargRegelId);
     this.selectedRowIndex = row.FargRegelId;
   }
+  openDialog() {
+
+  }
 }
