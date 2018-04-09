@@ -7,6 +7,7 @@ import { Regel } from '../model/regel';
 import { Observable } from 'rxjs/Observable';
 import { RegelTypen } from '../model/regeltyp';
 import { of } from 'rxjs/observable/of';
+import { AppConfig } from '../app.config';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -17,11 +18,12 @@ const httpOptions = {
 @Injectable()
 export class RegelService {
 
-  private regelUrl = 'http://localhost:8087/api/Regel';  // URL to web api
-  private regelTypUrl = 'http://localhost:8087/api/RegelType';
+  private regelUrl = AppConfig.settings.apiServer.RegelUrl;  // URL to web api
+  private regelTypUrl = AppConfig.settings.apiServer.RegelTypUrl;
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService,
+    private config: AppConfig) { }
 
   getRegler(): Observable<Regel[]> {
     return this.http.get<Regel[]>(this.regelUrl);

@@ -13,8 +13,8 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./view-procedurer.component.css']
 })
 export class ViewProcedurerComponent implements OnInit, AfterViewInit {
-  displayedColumns = ['SourceGroupDescription', 'Provmaterial', 'Procedure', 'IsDoctor', 'Faktureras',
-                      'AtenaNameing', 'RegelTypeName', 'RegionNamn'];
+  displayedColumns = ['SourceGroupDescription', 'SourceGroupCode', 'Procedure', 'ProcedurKod',
+                     'RegelTypeName', 'WhatToCount', 'RegionNamn'];
 
   dataSource = new MatTableDataSource<ProcedurerFlat>();
   @ViewChild(MatSort) sort: MatSort;
@@ -23,6 +23,7 @@ export class ViewProcedurerComponent implements OnInit, AfterViewInit {
   organSelection = '';
   organs = new FormControl();
   myFilterValue = '';
+  isFilterUsed = false;
 
   organList = [];
 
@@ -38,7 +39,7 @@ export class ViewProcedurerComponent implements OnInit, AfterViewInit {
       const accumulator = (currentTerm, key) => currentTerm + data[key];
       const dataStr = Object.keys(data).reduce(accumulator, '').toLowerCase();
       const transformedFilter = this.myFilterValue.trim().toLowerCase();
-        if (this.organs.value.length < 1) {
+        if (!this.organs.value || this.organs.value.length < 1) {
           return dataStr.indexOf(transformedFilter) !== -1;
         }
         const filterCheck = dataStr.indexOf(transformedFilter) !== -1 || transformedFilter === '';
@@ -70,15 +71,16 @@ export class ViewProcedurerComponent implements OnInit, AfterViewInit {
   }
 
   applyOrganSelection() {
-  console.log(this.organs.value);
-  console.log(this.myFilterValue);
-
-    this.dataSource.filter = ' ';
+      console.log(this.organs.value);
+      console.log(this.myFilterValue);
+      this.isFilterUsed = true;
+      this.dataSource.filter = ' ';
   }
 
   applyFilter(filterValue: string) {
     filterValue = filterValue.trim(); // Remove whitespace
     filterValue = filterValue.toLowerCase(); // MatTableDataSource defaults to lowercase matches
+    this.isFilterUsed = true;
     this.dataSource.filter = filterValue;
   }
 

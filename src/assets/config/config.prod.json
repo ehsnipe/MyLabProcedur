@@ -15,7 +15,12 @@
     "clientId": "ProdClientId"
     },
     "apiServer": {
-    "metadata": "https://prod.demo.com/api/v1.0/",
-    "rule": "https://prod.demo.com/api/v1.0/"
+        "ProcedurFakt": "http://localhost:8087/api/ProcedurFakt",
+        "Procedurer": "http://localhost:8087/api/Procedurer",
+        "ProcedurFlat": "http://localhost:8087/api/ProcedurFlat",
+        "FargningsTypUrl": "http://localhost:8087/api/FargningsTyp",
+        "FargRegelUrl": "http://localhost:8087/api/FargRegel",
+        "RegelUrl": "http://localhost:8087/api/Regel",
+        "RegelTypUrl": "http://localhost:8087/api/RegelType"
     }
 }

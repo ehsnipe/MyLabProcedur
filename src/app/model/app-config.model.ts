@@ -16,7 +16,12 @@ export interface IAppConfig {
 
     };
     apiServer: {
-        metadata: string;
-        rules: string;
+        ProcedurFakt: string;
+        Procedurer: string;
+        ProcedurFlat: string;
+        FargningsTypUrl: string
+        FargRegelUrl: string;
+        RegelUrl: string;
+        RegelTypUrl: string;
     };
 }

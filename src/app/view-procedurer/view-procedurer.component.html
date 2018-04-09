@@ -15,46 +15,34 @@
   <div>
     <mat-form-field>
       <mat-select placeholder="Organomrade" [formControl]="organs" multiple>
-        <mat-option *ngFor="let organ of organList" [value]="organ" (click)="applyOrganSelection()">{{organ}}</mat-option>
+        <mat-option *ngFor="let organ of organList" [value]="organ.viewValue" (click)="applyOrganSelection()">{{organ.viewValue}}</mat-option>
       </mat-select>
     </mat-form-field>
   </div>
 <mat-table [dataSource]=dataSource  matSort >
+  
  <!-- Position Column -->
  <ng-container matColumnDef="SourceGroupDescription">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Organomrade </mat-header-cell>
         <mat-cell *matCellDef="let element"> {{element.SourceGroupDescription}} </mat-cell>
       </ng-container>
-  
-      <!-- Name Column -->
-      <ng-container matColumnDef="Provmaterial">
-        <mat-header-cell *matHeaderCellDef mat-sort-header> Provmaterial </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.Provmaterial}} </mat-cell>
-      </ng-container>
-
+   <!-- Kod Organområde Column -->
+ <ng-container matColumnDef="SourceGroupCode">
+    <mat-header-cell *matHeaderCellDef mat-sort-header> Kod Organområde </mat-header-cell>
+    <mat-cell *matCellDef="let element"> {{element.SourceGroupCode}} </mat-cell>
+  </ng-container>
           <!-- Procedure Column -->
           <ng-container matColumnDef="Procedure">
                 <mat-header-cell *matHeaderCellDef mat-sort-header> Procedure </mat-header-cell>
                 <mat-cell *matCellDef="let element"> {{element.ProcedurBeskrivning}} </mat-cell>
               </ng-container>
-  
-      <!-- IsDoctor Column -->
-      <ng-container matColumnDef="IsDoctor">
-        <mat-header-cell *matHeaderCellDef> IsDoctor </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.IsDoctor}} </mat-cell>
-      </ng-container>
-  
-      <!-- Faktureras Column -->
-      <ng-container matColumnDef="Faktureras">
-        <mat-header-cell *matHeaderCellDef> Faktureras </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.Faktureras}} </mat-cell>
-      </ng-container>
+        
+             <!-- Kod Procedur Column -->
+        <ng-container matColumnDef="ProcedurKod">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> Kod Procedur </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.ProcedurKod}} </mat-cell>
+          </ng-container>
 
-            <!-- AtenaNameing Column -->
-            <ng-container matColumnDef="AtenaNameing">
-                    <mat-header-cell *matHeaderCellDef> AtenaNameing </mat-header-cell>
-                    <mat-cell *matCellDef="let element"> {{element.AtenaNameing}} </mat-cell>
-                  </ng-container>
 
                         <!-- RegelTypeName Column -->
       <ng-container matColumnDef="RegelTypeName">
@@ -62,6 +50,11 @@
             <mat-cell *matCellDef="let element"> {{element.RegelTypeName}} </mat-cell>
           </ng-container>
 
+          <!-- RegelTypeName Column -->
+        <ng-container matColumnDef="WhatToCount">
+            <mat-header-cell *matHeaderCellDef> Räkna antal </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.WhatToCount}} </mat-cell>
+          </ng-container>
                 <!-- RegionNamn Column -->
       <ng-container matColumnDef="RegionNamn">
             <mat-header-cell *matHeaderCellDef> RegionNamn </mat-header-cell>
@@ -78,5 +71,6 @@
 
 </mat-table>
 </div>
-<p>Antal rader: {{dataSource.data.length}}</p>
+<p>Visar antal rader:{{dataSource.filteredData.length}} <i *ngIf=isFilterUsed>
+  (av {{dataSource.data.length}})</i> </p>
 </div>
