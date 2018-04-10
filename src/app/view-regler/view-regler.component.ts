@@ -16,8 +16,6 @@ import { RegelType } from '../model/regeltype';
 export class ViewReglerComponent implements OnInit {
   displayedColumns = ['RegelTypeName', 'Fakt', 'StartAntal', 'SlutAntal'];
 
-  animal: string;
-  name: string;
   selectedRowIndex = -1;
 
   dataSource = new MatTableDataSource<Regel>();
@@ -32,7 +30,7 @@ export class ViewReglerComponent implements OnInit {
   openDialog(): void {
     const dialogRef = this.dialog.open(CreateregelComponent, {
       width: '250px',
-      data: { name: this.name, animal: this.animal }
+      data: { }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -59,6 +57,18 @@ export class ViewReglerComponent implements OnInit {
     });
   }
 
+  onEdit(regel: Regel): void {
+    console.log(regel.RegelId);
+    const dialogRef = this.dialog.open(CreateregelComponent, {
+      width: '250px',
+      data: { regel }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getAllRegels();
+    });
+  }
   sortData(sort: Sort) {
     const data = this.dataSource.data.slice();
     if (!sort.active || sort.direction === '') {

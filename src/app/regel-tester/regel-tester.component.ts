@@ -54,10 +54,10 @@ export class RegelTesterComponent implements OnInit  {
 
   ngOnInit() {
     this.procedurService.getUniqueOrganArea().subscribe(data => this.organs = data);
-
-    this.procedurService.getUniqueProcedurs().subscribe(data => this.procedurs = data);
   }
-
+  setOrganArea(): void {
+    this.procedurService.getUniqueProcedurs(this.selectedOrgan).subscribe(data => this.procedurs = data);
+  }
   testRegel() {
     const test = new GetProcedurFakt();
     if (this.isSunderbyn) {

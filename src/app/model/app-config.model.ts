@@ -19,6 +19,7 @@ export interface IAppConfig {
         ProcedurFakt: string;
         Procedurer: string;
         ProcedurFlat: string;
+        ProcedurFlatCashTimeout: number;
         FargningsTypUrl: string
         FargRegelUrl: string;
         RegelUrl: string;

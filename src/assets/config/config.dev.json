@@ -18,6 +18,7 @@
         "ProcedurFakt": "http://localhost:8087/api/ProcedurFakt",
         "Procedurer": "http://localhost:8087/api/Procedurer",
         "ProcedurFlat": "http://localhost:8087/api/ProcedurFlat",
+        "ProcedurFlatCashTimeout": 60,
         "FargningsTypUrl": "http://localhost:8087/api/FargningsTyp",
         "FargRegelUrl": "http://localhost:8087/api/FargRegel",
         "RegelUrl": "http://localhost:8087/api/Regel",

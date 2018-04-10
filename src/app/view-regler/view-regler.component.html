@@ -19,7 +19,11 @@
                 <!-- RegelTypeName Column -->
                 <ng-container matColumnDef="RegelTypeName">
                        <mat-header-cell *matHeaderCellDef mat-sort-header="RegelTypeName"> RegelTypeName </mat-header-cell>
-                       <mat-cell *matCellDef="let element"> {{element.RegelTypeName.RegelTypeName}} </mat-cell>
+                       <mat-cell *matCellDef="let element">  {{element.RegelTypeName.RegelTypeName}} 
+                          <button mat-button (click)="onEdit(element)">
+                              <mat-icon>mode_edit</mat-icon>
+                          </button>
+                       </mat-cell>
                      </ng-container>
                  
                      <!-- Fakt Column -->

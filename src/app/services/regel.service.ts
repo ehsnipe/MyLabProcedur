@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ErrorObservable } from 'rxjs/observable/ErrorObservable';
 import { catchError,  map, tap} from 'rxjs/operators';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MessageService } from '../message.service';
 import { Regel } from '../model/regel';
 import { Observable } from 'rxjs/Observable';
@@ -49,9 +49,21 @@ export class RegelService {
     return this.http.get<RegelTypen[]>(this.regelTypUrl);
   }
 
-  createRegel(regel: Regel) {
+  createRegel(regel: Regel): Observable<Regel> {
     return this.http.post<Regel>(this.regelUrl, regel, httpOptions).pipe(
       tap((r: Regel) => console.log(`added Regel id=${r.RegelId}`))
+    );
+  }
+
+  updateRegel(regel: Regel) {
+    return this.http.put<Regel>(this.regelUrl + '/' + regel.RegelId, regel, httpOptions).pipe(
+      tap(() => console.log(`update Regel id=${regel.RegelId}`))
+    );
+  }
+
+  deleteRegel(regel: Regel) {
+    return this.http.delete<Regel>(this.regelUrl + '/' + regel.RegelId, httpOptions).pipe(
+      tap(() => console.log(`update Regel id=${regel.RegelId}`))
     );
   }
 

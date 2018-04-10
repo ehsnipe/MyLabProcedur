@@ -8,7 +8,7 @@
       </mat-form-field>
 
       <mat-form-field>
-          <mat-select placeholder="Organområde" [(ngModel)]="selectedOrgan">
+          <mat-select placeholder="Organområde" [(ngModel)]="selectedOrgan" (selectionChange)="setOrganArea()">
             <mat-option *ngFor="let organ of organs" [value]="organ.value">
               {{ organ.viewValue }}
             </mat-option>

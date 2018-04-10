@@ -15,6 +15,11 @@
     </mat-select>
   </mat-form-field>
 
-  <button (click)='createRegel()'>Skapa regel</button>
+  <button (click)='createRegel()'>{{buttonText}}</button>
   <button (click)='cancel()'>Avbryt</button>
+  <br/>
+  <hr/>
+  <button mat-button (click)='deleteRegel()'>
+    <mat-icon>delete</mat-icon>
+  </button>
 </div>

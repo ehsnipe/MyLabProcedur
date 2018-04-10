@@ -23,7 +23,9 @@ export class ProcedurService {
 
   private procedurUrl = AppConfig.settings.apiServer.Procedurer;  // URL to web api
   private procedurFlatUrl = AppConfig.settings.apiServer.ProcedurFlat;
-
+  private cashTimeOut = AppConfig.settings.apiServer.ProcedurFlatCashTimeout;
+  private cachedProcFlat: ProcedurerFlat[];
+  private cachStartTime: Date;
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
@@ -34,7 +36,30 @@ export class ProcedurService {
   }
 
   getFlatProcedurer(): Observable<ProcedurerFlat[]> {
-    return this.http.get<ProcedurerFlat[]>(this.procedurFlatUrl);
+    if (this.cachedProcFlat && !this.isCacheExpiered()) {
+      console.log('Use cached version');
+      return of(this.cachedProcFlat);
+    }
+
+    return this.http.get<ProcedurerFlat[]>(this.procedurFlatUrl).pipe(
+      tap((p: ProcedurerFlat[]) => {
+        this.cachedProcFlat = p;
+        this.initCache();
+      })
+    );
+  }
+
+  initCache(): void {
+    this.cachStartTime = new Date();
+  }
+
+  isCacheExpiered(): boolean {
+    const cachAgeInsec = (new Date().getTime() - this.cachStartTime.getTime()) / 1000;
+    console.log('isCacheExpiered() ' + cachAgeInsec);
+    if (cachAgeInsec > this.cashTimeOut) {
+      return true;
+    }
+    return false;
   }
 
   getUniqueOrganArea(): Observable<string[]> {
@@ -52,13 +77,14 @@ export class ProcedurService {
     return of(resArr);
   }
 
-  getUniqueProcedurs(): Observable<string[]> {
+  getUniqueProcedurs(selectedOrgan: string): Observable<string[]> {
     // return of([{'Biopsi', 'PX'}, {'Exostos', 'EXOS'}]);
     const resArr = [];
+    console.log('Selected: ' + selectedOrgan);
     this.getFlatProcedurer().subscribe(data => {
       data.filter(function(item) {
         const i = resArr.findIndex(x => x.viewValue === item.ProcedurBeskrivning);
-        if (i <= -1) {
+        if (i <= -1 && item.SourceGroupCode === selectedOrgan) {
               resArr.push({viewValue: item.ProcedurBeskrivning, value: item.ProcedurKod});
         }
         return null;
