@@ -6,8 +6,11 @@
     "instrumentationKey": "ProdKey"
     },
     "logging": {
+    "loggingURL": "http://localhost:8087/api/LogMessage",
     "console": true,
-    "appInsights": true
+    "webapi": true,
+    "logLevel": "Debug",
+    "existingLogLEvels": "Debug, Warning, Error, Off"
     },
     "aad": {
     "requireAuth": true,

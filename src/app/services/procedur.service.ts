@@ -10,6 +10,7 @@ import { Procedurer } from '../model/procedur';
 import {ProcedurerFlat} from '../model/procedurer-flat';
 import { GetProcedurFakt } from '../model/getprocedurfakt';
 import { AppConfig } from '../app.config';
+import { LogEvent, LogLevel } from './log.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -29,7 +30,8 @@ export class ProcedurService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private config: AppConfig) { }
+    private config: AppConfig,
+    private logMsg: LogEvent) { }
 
   getProcedurer(): Observable<Procedurer[]> {
     return this.http.get<Procedurer[]>(this.procedurUrl);
@@ -37,7 +39,7 @@ export class ProcedurService {
 
   getFlatProcedurer(): Observable<ProcedurerFlat[]> {
     if (this.cachedProcFlat && !this.isCacheExpiered()) {
-      console.log('Use cached version');
+      this.logMsg.log(LogLevel.Debug, 'Use cached version', 'ProcedurService');
       return of(this.cachedProcFlat);
     }
 
@@ -55,7 +57,7 @@ export class ProcedurService {
 
   isCacheExpiered(): boolean {
     const cachAgeInsec = (new Date().getTime() - this.cachStartTime.getTime()) / 1000;
-    console.log('isCacheExpiered() ' + cachAgeInsec);
+    this.logMsg.log(LogLevel.Debug, 'isCacheExpiered() ' + cachAgeInsec, 'ProcedurService');
     if (cachAgeInsec > this.cashTimeOut) {
       return true;
     }
@@ -74,13 +76,13 @@ export class ProcedurService {
         return null;
       });
     });
-    return of(resArr);
+    return of(resArr.sort((a, b) => a.viewValue < b.viewValue ? -1 : a.viewValue > b.viewValue ? 1 : 0));
   }
 
   getUniqueProcedurs(selectedOrgan: string): Observable<string[]> {
     // return of([{'Biopsi', 'PX'}, {'Exostos', 'EXOS'}]);
     const resArr = [];
-    console.log('Selected: ' + selectedOrgan);
+    this.logMsg.log(LogLevel.Debug, 'Selected: ' + selectedOrgan, 'ProcedurService');
     this.getFlatProcedurer().subscribe(data => {
       data.filter(function(item) {
         const i = resArr.findIndex(x => x.viewValue === item.ProcedurBeskrivning);
@@ -90,17 +92,17 @@ export class ProcedurService {
         return null;
       });
     });
-    return of(resArr);
+    return of(resArr.sort((a, b) => a.viewValue < b.viewValue ? -1 : a.viewValue > b.viewValue ? 1 : 0));
   }
   createProcedure(procedur: Procedurer) {
     return this.http.post<Procedurer>(this.procedurUrl, procedur, httpOptions).pipe(
-      tap((p: Procedurer) => console.log(`added Procedur id=${p.ProcedurerId}`))
+      tap((p: Procedurer) => this.logMsg.log(LogLevel.Debug, `added Procedur id=${p.ProcedurerId}`, 'ProcedurService'))
     );
   }
 
   getFakt(getProc: GetProcedurFakt): Observable<string> {
     const url = AppConfig.settings.apiServer.ProcedurFakt;
-    console.log('In service');
+    this.logMsg.log(LogLevel.Debug, 'In getFact()', 'ProcedurService');
     return this.http.post<string>(url, getProc);
   }
   /** Log a message with the MessageService */

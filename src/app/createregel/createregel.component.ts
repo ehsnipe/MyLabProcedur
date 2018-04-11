@@ -11,6 +11,7 @@ import { RegelType } from '../model/regeltype';
 import { Router } from '@angular/router';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { combineAll } from 'rxjs/operators';
+import { LogEvent, LogLevel } from '../services/log.service';
 
 @Component({
   selector: 'app-createregel',
@@ -27,20 +28,25 @@ export class CreateregelComponent implements OnInit {
   optionSelected: number;
   optionTextSelected: string;
   buttonText: string;
+  showDelete = false;
 
-  constructor(private router: Router, private regelService: RegelService,
+  constructor(private router: Router,
+    private logEvent: LogEvent,
+    private regelService: RegelService,
     public dialogRef: MatDialogRef<CreateregelComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
-      console.log(data);
+      this.logEvent.log(LogLevel.Debug, JSON.stringify(data), 'CreateregelComponent');
       if (data.regel) {
         this.regel = data.regel;
         this.buttonText = 'Updatera regel';
+        this.showDelete = true;
         this.faktText = data.regel.Fakt;
         this.slutVal = data.regel.SlutAntal;
         this.startVal = data.regel.StartAntal;
         this.optionSelected = data.regel.RegelTypeName.RegelTypeId;
       } else {
         this.buttonText = 'Skapa regel';
+        this.showDelete = false;
       }
     }
 
@@ -53,6 +59,7 @@ export class CreateregelComponent implements OnInit {
   }
 
   createRegel() {
+
     if (this.regel) {
       this.updateRegel();
     } else {
@@ -64,7 +71,7 @@ export class CreateregelComponent implements OnInit {
       this.regel.SlutAntal = this.slutVal;
 
       this.regelService.createRegel(this.regel).subscribe(() => {
-        console.log('Added');
+        this.logEvent.log(LogLevel.Debug, 'Added', 'CreateregelComponent');
         this.dialogRef.close();
       });
     }
@@ -78,14 +85,14 @@ export class CreateregelComponent implements OnInit {
     this.regel.SlutAntal = this.slutVal;
 
     this.regelService.updateRegel(this.regel).subscribe(() => {
-      console.log('Updated');
+      this.logEvent.log(LogLevel.Debug, 'Updated', 'CreateregelComponent');
       this.dialogRef.close();
     });
   }
   deleteRegel(): void {
     if (confirm('Vill du ta bort denna regel?')) {
       this.regelService.deleteRegel(this.regel).subscribe(() => {
-        console.log('Delete');
+        this.logEvent.log(LogLevel.Debug, 'Delete', 'CreateregelComponent');
         this.dialogRef.close();
       });
     }

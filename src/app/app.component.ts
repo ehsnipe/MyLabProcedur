@@ -10,7 +10,8 @@ export class AppComponent {
   title = 'Unilabs Regelsite';
 
   constructor(private logger: LogEvent) {}
-  debugMe(msg: string): void {
-    this.logger.logIt(LogLevel.Debug, msg, []);
-  }
+    debugMe(msg: string): void {
+            console.log('click');
+            this.logger.log(LogLevel.Debug, msg, 'AppComponent');
+          }
 }

@@ -1,51 +1,64 @@
 import { Injectable } from '@angular/core';
+import { AppConfig } from '../app.config';
+import { HttpClient } from '@angular/common/http';
 
-export abstract class GenericLogger {
-  abstract log(msg: string);
-}
 
 @Injectable()
-export class LogService extends GenericLogger {
+export class LogService {
 
-  constructor() {
-    super();
+  constructor(private http: HttpClient,
+              private config: AppConfig) {
    }
 
   log(msg: string): void {
-    console.log('Service: ' + msg);
+    const url = AppConfig.settings.logging.loggingURL;
+    const logMsg = new LogMessage();
+    logMsg.Message = msg;
+    this.http.post(url, logMsg).subscribe(
+      () => null,
+      error => console.log('Could not log to web api: ' + msg)
+    );
   }
 
 }
 
-export class LogToConsole extends GenericLogger {
+@Injectable()
+export class LogToConsole {
   constructor() {
-    super();
+
    }
 
   log(msg: string): void {
-    console.log('Console: ' + msg);
+    console.log(msg);
   }
 }
 
 @Injectable()
 export class LogEvent {
-  private level: LogLevel = LogLevel.Debug;
-  private loggers: GenericLogger[] = [new LogService(), new LogToConsole()];
-  constructor(private logger: LogService) {}
+  private level: LogLevel = <LogLevel>LogLevel[AppConfig.settings.logging.logLevel.toString()]; // Set LogLevel from config.<env>.json
+  constructor(private webLogger: LogService,
+              private consolLogger: LogToConsole,
+              private config: AppConfig) {}
 
-  logIt(logLevel: LogLevel, msg: string, parms: any[]): void {
-    if (this.level === LogLevel.Off) {
+  log(logLevel: LogLevel, msg: string, calledFrom: string): void {
+    if (AppConfig.settings.logging.logLevel === LogLevel.Off) {
       return;
     }
     if (this.level >= logLevel) {
-      const logMsg = new Date() + ', LogLevel: ' + LogLevel[logLevel] + ', '  + msg;
-      this.loggers.forEach(l => {
-        l.log(logMsg);
-      });
+      const logMsg = 'From: ' + calledFrom + ', LogLevel: ' + LogLevel[logLevel] + ', '  + msg;
+      if (AppConfig.settings.logging.console) {
+        this.consolLogger.log(logMsg);
+      }
+      if (AppConfig.settings.logging.webapi) {
+        this.webLogger.log(logMsg);
+      }
     }
   }
 }
 
+export class LogMessage {
+  Message: string;
+}
 export enum LogLevel {
   Debug = 0,
   Warning = 1,

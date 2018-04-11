@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild,
          AfterViewInit, ElementRef } from '@angular/core';
 import { ProcedurService } from '../services/procedur.service';
 import { GetProcedurFakt } from '../model/getprocedurfakt';
+import { LogEvent, LogLevel } from '../services/log.service';
 
 
 @Component({
@@ -39,9 +40,9 @@ export class RegelTesterComponent implements OnInit  {
   ];
 
   regions = [
-    {value: 1, viewValue: 'Västragötaland'},
-    {value: 2, viewValue: 'Stockholm'},
-    {value: 3, viewValue: 'Värmland'},
+    {value: 1, viewValue: 'Stockholm'},
+    {value: 2, viewValue: 'Skövde'},
+    {value: 3, viewValue: 'Eskilstuna'},
     {value: 4, viewValue: 'Sunderbyn'}
   ];
 
@@ -50,7 +51,8 @@ export class RegelTesterComponent implements OnInit  {
     {value: '2', viewValue: 'Två'},
     {value: '3', viewValue: 'Tre'},
   ];
-  constructor(private procedurService: ProcedurService) { }
+  constructor(private procedurService: ProcedurService,
+              private logEvent: LogEvent) { }
 
   ngOnInit() {
     this.procedurService.getUniqueOrganArea().subscribe(data => this.organs = data);
@@ -68,10 +70,9 @@ export class RegelTesterComponent implements OnInit  {
     test.ProcedurKod = this.selectedProcedur;
     test.Regionid = this.selectedRegion;
     test.AntalAvTyp = this.antal;
-    console.log('Before call service');
+    this.logEvent.log(LogLevel.Debug, JSON.stringify(test), 'RegelTesterComponent');
     this.procedurService.getFakt(test).subscribe(faktResult => {
       this.cnt++;
-      console.log('inside');
       this.log = this.selectedOrgan + ', Proc: ' + this.selectedProcedur + ' ' +
                   ', CountWhat: ' + this.selectedWhatToCount + ' Antal: ' + this.antal +
                   ' ==> ' + faktResult + '\n' + this.log;

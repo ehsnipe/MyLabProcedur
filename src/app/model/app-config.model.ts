@@ -1,3 +1,5 @@
+import { LogLevel } from '../services/log.service';
+
 export interface IAppConfig {
     env: {
         name: string;
@@ -6,8 +8,10 @@ export interface IAppConfig {
         instrumentationKey: string;
     };
     logging: {
+        loggingURL: string;
         console: boolean;
-        appInsights: boolean;
+        webapi: boolean;
+        logLevel: LogLevel;
     };
     aad: {
         requireAuth: boolean;

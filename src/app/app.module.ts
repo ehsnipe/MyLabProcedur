@@ -41,7 +41,7 @@ import { ViewProcedurerComponent } from './view-procedurer/view-procedurer.compo
 import { AppRoutingModule } from './/app-routing.module';
 
 import { ProcedurService } from './services/procedur.service';
-import {LogService, LogEvent } from './services/log.service';
+import {LogService, LogEvent, LogToConsole } from './services/log.service';
 import { FargningService } from './services/fargning.service';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
@@ -104,7 +104,7 @@ import { AppConfig } from './app.config';
     MatTooltipModule,
   ],
   providers: [ProcedurService, MessageService, RegelService,
-              LogService, LogEvent, FargningService, AppConfig],
+              LogService, LogToConsole, LogEvent, FargningService, AppConfig],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

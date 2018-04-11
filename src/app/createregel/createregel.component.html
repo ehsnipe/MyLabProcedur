@@ -18,8 +18,7 @@
   <button (click)='createRegel()'>{{buttonText}}</button>
   <button (click)='cancel()'>Avbryt</button>
   <br/>
-  <hr/>
-  <button mat-button (click)='deleteRegel()'>
+  <button *ngIf='showDelete' mat-button (click)='deleteRegel()'>
     <mat-icon>delete</mat-icon>
   </button>
 </div>
