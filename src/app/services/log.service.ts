@@ -14,7 +14,7 @@ export class LogService {
     const url = AppConfig.settings.logging.loggingURL;
     const logMsg = new LogMessage();
     logMsg.Message = msg;
-    this.http.post(url, logMsg).subscribe(
+    this.http.post(url, logMsg, {withCredentials: true}).subscribe(
       () => null,
       error => console.log('Could not log to web api: ' + msg)
     );

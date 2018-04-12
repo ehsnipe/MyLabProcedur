@@ -15,7 +15,8 @@ import { LogEvent, LogLevel } from './log.service';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': '*',
+    'withCredentials': 'true'
   })
 };
 
@@ -34,7 +35,7 @@ export class ProcedurService {
     private logMsg: LogEvent) { }
 
   getProcedurer(): Observable<Procedurer[]> {
-    return this.http.get<Procedurer[]>(this.procedurUrl);
+    return this.http.get<Procedurer[]>(this.procedurUrl, {withCredentials: true});
   }
 
   getFlatProcedurer(): Observable<ProcedurerFlat[]> {
@@ -43,7 +44,7 @@ export class ProcedurService {
       return of(this.cachedProcFlat);
     }
 
-    return this.http.get<ProcedurerFlat[]>(this.procedurFlatUrl).pipe(
+    return this.http.get<ProcedurerFlat[]>(this.procedurFlatUrl, {withCredentials: true}).pipe(
       tap((p: ProcedurerFlat[]) => {
         this.cachedProcFlat = p;
         this.initCache();
@@ -103,7 +104,7 @@ export class ProcedurService {
   getFakt(getProc: GetProcedurFakt): Observable<string> {
     const url = AppConfig.settings.apiServer.ProcedurFakt;
     this.logMsg.log(LogLevel.Debug, 'In getFact()', 'ProcedurService');
-    return this.http.post<string>(url, getProc);
+    return this.http.post<string>(url, getProc, {withCredentials: true});
   }
   /** Log a message with the MessageService */
   private log(message: string) {

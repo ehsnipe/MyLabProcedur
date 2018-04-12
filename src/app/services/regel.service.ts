@@ -12,7 +12,8 @@ import { AppConfig } from '../app.config';
 const httpOptions = {
   headers: new HttpHeaders({
     'Content-Type':  'application/json'
-  })
+  }),
+  withCredentials: true
 };
 
 @Injectable()

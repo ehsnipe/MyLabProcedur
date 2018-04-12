@@ -18,10 +18,10 @@ export class FargningService {
     private config: AppConfig) { }
 
     getFargningTyps(): Observable<FargningsTyp[]> {
-      return this.http.get<FargningsTyp[]>(this.fargningsTypUrl);
+      return this.http.get<FargningsTyp[]>(this.fargningsTypUrl, {withCredentials: true});
     }
 
     getFargningRegler(): Observable<FargRegel[]> {
-      return this.http.get<FargRegel[]>(this.fargRegelUrl);
+      return this.http.get<FargRegel[]>(this.fargRegelUrl, {withCredentials: true});
     }
 }
