@@ -1,7 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AppConfig } from '../app.config';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
+const httpOptions = {
+  headers: new HttpHeaders({
+    'Content-Type':  'application/json'
+  }),
+  withCredentials: true
+};
 
 @Injectable()
 export class LogService {
@@ -14,7 +20,7 @@ export class LogService {
     const url = AppConfig.settings.logging.loggingURL;
     const logMsg = new LogMessage();
     logMsg.Message = msg;
-    this.http.post(url, logMsg, {withCredentials: true}).subscribe(
+    this.http.post(url, logMsg, httpOptions).subscribe(
       () => null,
       error => console.log('Could not log to web api: ' + msg)
     );
@@ -36,6 +42,8 @@ export class LogToConsole {
 @Injectable()
 export class LogEvent {
   private level: LogLevel = <LogLevel>LogLevel[AppConfig.settings.logging.logLevel.toString()]; // Set LogLevel from config.<env>.json
+  private includeVersionNr = true;
+  private versionNr = 'Version 1.0.1000, ';
   constructor(private webLogger: LogService,
               private consolLogger: LogToConsole,
               private config: AppConfig) {}
@@ -45,7 +53,12 @@ export class LogEvent {
       return;
     }
     if (this.level >= logLevel) {
-      const logMsg = 'From: ' + calledFrom + ', LogLevel: ' + LogLevel[logLevel] + ', '  + msg;
+      if (this.includeVersionNr) {
+        this.includeVersionNr = false;
+      } else {
+        this.versionNr = '';
+      }
+      const logMsg = this.versionNr + 'From: ' + calledFrom + ', LogLevel: ' + LogLevel[logLevel] + ', '  + msg;
       if (AppConfig.settings.logging.console) {
         this.consolLogger.log(logMsg);
       }

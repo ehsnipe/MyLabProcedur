@@ -47,6 +47,7 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageService } from './message.service';
 import { ViewReglerComponent } from './view-regler/view-regler.component';
 import { RegelService } from './services/regel.service';
+import { RegionService} from './services/region.service';
 import { CreateprocedurComponent } from './createprocedur/createprocedur.component';
 import { CreateregelComponent } from './createregel/createregel.component';
 import { RegelTesterComponent } from './regel-tester/regel-tester.component';
@@ -103,7 +104,7 @@ import { AppConfig } from './app.config';
     MatToolbarModule,
     MatTooltipModule,
   ],
-  providers: [ProcedurService, MessageService, RegelService,
+  providers: [ProcedurService, MessageService, RegelService, RegionService,
               LogService, LogToConsole, LogEvent, FargningService, AppConfig],
   bootstrap: [AppComponent]
 })

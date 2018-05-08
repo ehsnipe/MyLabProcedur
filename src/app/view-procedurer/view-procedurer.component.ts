@@ -1,11 +1,13 @@
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 
-import {MatTableDataSource, MatSort} from '@angular/material';
+import {MatTableDataSource, MatSort, MatDialog} from '@angular/material';
 
 import {Procedurer, Procedur, OrganArea} from '../model/procedur';
 import {ProcedurerFlat} from '../model/procedurer-flat';
 import {ProcedurService} from '../services/procedur.service';
 import { FormControl } from '@angular/forms';
+import { LogEvent, LogLevel } from '../services/log.service';
+import { CreateprocedurComponent } from '../createprocedur/createprocedur.component';
 
 @Component({
   selector: 'app-view-procedurer',
@@ -27,7 +29,9 @@ export class ViewProcedurerComponent implements OnInit, AfterViewInit {
 
   organList = [];
 
-  constructor(private procedureService: ProcedurService) { }
+  constructor(private procedureService: ProcedurService,
+              private logEvent: LogEvent,
+              public dialog: MatDialog) { }
 
   ngOnInit() {
     this.getProcedurer();
@@ -56,10 +60,35 @@ export class ViewProcedurerComponent implements OnInit, AfterViewInit {
 
   }
 
+  openDialog(): void {
+    const dialogRef = this.dialog.open(CreateprocedurComponent, {
+      width: '250px',
+      data: { }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      this.logEvent.log(LogLevel.Debug, 'ViewProcedurerComponent', 'The dialog was closed');
+      this.getProcedurer();
+    });
+  }
+
+  onEdit(procedur: ProcedurerFlat): void {
+    this.logEvent.log(LogLevel.Debug, 'ViewProcedurerComponent', 'Selected procedure: ' + procedur.ProcedurerId);
+    const dialogRef = this.dialog.open(CreateprocedurComponent, {
+      width: '250px',
+      data: { procedur }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      this.getProcedurer();
+    });
+  }
+
   getProcedurer(): void {
     this.procedureService.getFlatProcedurer()
         .subscribe(p => {
-            console.log('GetTheData');
+            this.logEvent.log(LogLevel.Debug, 'ViewProcedurerComponent', 'GetTheData');
             this.dataSource.data = p; //  = new MatTableDataSource(p);
             this.dataSource.sort = this.sort;
             this.dataSource.sortingDataAccessor = (data, sortHeaderId) => {

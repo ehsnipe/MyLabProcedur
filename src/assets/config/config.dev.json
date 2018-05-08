@@ -6,11 +6,11 @@
     "instrumentationKey": "<dev-guid-here>"
      },
     "logging": {
-    "loggingURL": "http://localhost:8087/api/LogMessage",
-    "console": true,
-    "webapi": true,
-    "logLevel": "Debug",
-    "existingLogLEvels": "Debug, Warning, Error, Off"
+        "loggingURL": "http://localhost:8087/api/LogMessage",
+        "console": true,
+        "webapi": true,
+        "logLevel": "Debug",
+        "existingLogLEvels": "Debug, Warning, Error, Off"
     },
     "aad": {
     "requireAuth": true,

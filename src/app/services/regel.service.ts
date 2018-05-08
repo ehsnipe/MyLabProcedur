@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import { RegelTypen } from '../model/regeltyp';
 import { of } from 'rxjs/observable/of';
 import { AppConfig } from '../app.config';
+import { LogEvent, LogLevel } from './log.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -24,7 +25,8 @@ export class RegelService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private config: AppConfig) { }
+    private config: AppConfig,
+    private logEvent: LogEvent) { }
 
   getRegler(): Observable<Regel[]> {
     return this.http.get<Regel[]>(this.regelUrl);
@@ -52,19 +54,19 @@ export class RegelService {
 
   createRegel(regel: Regel): Observable<Regel> {
     return this.http.post<Regel>(this.regelUrl, regel, httpOptions).pipe(
-      tap((r: Regel) => console.log(`added Regel id=${r.RegelId}`))
+      tap((r: Regel) => this.logEvent.log(LogLevel.Debug,  `added Regel id=${r.RegelId}`, 'RegelService'))
     );
   }
 
   updateRegel(regel: Regel) {
     return this.http.put<Regel>(this.regelUrl + '/' + regel.RegelId, regel, httpOptions).pipe(
-      tap(() => console.log(`update Regel id=${regel.RegelId}`))
+      tap(() => this.logEvent.log(LogLevel.Debug,  `update Regel id=${regel.RegelId}`, 'RegelService'))
     );
   }
 
   deleteRegel(regel: Regel) {
     return this.http.delete<Regel>(this.regelUrl + '/' + regel.RegelId, httpOptions).pipe(
-      tap(() => console.log(`update Regel id=${regel.RegelId}`))
+      tap(() => this.logEvent.log(LogLevel.Debug,  `update Regel id=${regel.RegelId}`, 'RegelService'))
     );
   }
 

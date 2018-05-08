@@ -1,3 +1,50 @@
+<div class="procedurcreate-container">
+    <div>
+        <mat-form-field>
+            <mat-select placeholder="Organomrade" required  [(value)]='organOmrade'>
+            <mat-option *ngFor="let organ of organList" [value]="organ.value" >{{organ.viewValue}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </div>
+    <mat-form-field>
+    <mat-select placeholder="Procedur" required  [(value)]="selectedProcedur">
+        <mat-option *ngFor="let procedur of procedurs" [value]="procedur.value">
+        {{ procedur.viewValue }}
+        </mat-option>
+    </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-select placeholder="Regel" required  [(value)]="selectedRegel">
+          <mat-option *ngFor="let regel of regelList" [value]="regel.value">
+          {{ regel.viewValue }}
+          </mat-option>
+      </mat-select>
+      </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Räkna antal" required  [(value)]="selectedAntal">
+            <mat-option *ngFor="let antal of antalList" [value]="antal.value">
+            {{ antal.viewValue }}
+            </mat-option>
+        </mat-select>
+        </mat-form-field>
+        <mat-form-field>
+          <mat-select placeholder="Region" required  [(value)]="selectedRegion">
+              <mat-option *ngFor="let region of regionList" [value]="region.value">
+              {{ region.viewValue }}
+              </mat-option>
+          </mat-select>
+          </mat-form-field>
 
-
-<button (click)='createProcedur()'>Skapa procedur</button>
+    <mat-form-field *ngIf='procedurTypes' >
+      <mat-select placeholder="Procedur" class='select-option' required [(ngModel)]='optionSelected' (ngModelChange)='onOptionsSelected($event)' >
+        <mat-option  *ngFor='let opt of regelTypes'  [value]="opt.RegelTypeId">{{opt.RegelTypeName}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+  
+    <button (click)='createProcedur()'>{{buttonText}}</button>
+    <button (click)='cancel()'>Avbryt</button>
+    <br/>
+    <button *ngIf='showDelete' mat-button (click)='deleteProcedur()'>
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>

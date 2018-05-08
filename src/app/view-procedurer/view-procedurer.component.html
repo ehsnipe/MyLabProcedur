@@ -24,7 +24,11 @@
  <!-- Position Column -->
  <ng-container matColumnDef="SourceGroupDescription">
         <mat-header-cell *matHeaderCellDef mat-sort-header> Organomrade </mat-header-cell>
-        <mat-cell *matCellDef="let element"> {{element.SourceGroupDescription}} </mat-cell>
+        <mat-cell *matCellDef="let element"> {{element.SourceGroupDescription}} 
+          <button mat-button (click)="onEdit(element)">
+            <mat-icon>mode_edit</mat-icon>
+        </button>
+        </mat-cell>
       </ng-container>
    <!-- Kod Organområde Column -->
  <ng-container matColumnDef="SourceGroupCode">
@@ -52,7 +56,7 @@
 
           <!-- RegelTypeName Column -->
         <ng-container matColumnDef="WhatToCount">
-            <mat-header-cell *matHeaderCellDef> Räkna antal </mat-header-cell>
+            <mat-header-cell *matHeaderCellDef> Räkna antalen </mat-header-cell>
             <mat-cell *matCellDef="let element"> {{element.WhatToCount}} </mat-cell>
           </ng-container>
                 <!-- RegionNamn Column -->

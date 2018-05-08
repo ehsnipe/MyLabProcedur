@@ -14,10 +14,9 @@ import { LogEvent, LogLevel } from './log.service';
 
 const httpOptions = {
   headers: new HttpHeaders({
-    'Content-Type':  'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'withCredentials': 'true'
-  })
+    'Content-Type':  'application/json'
+  }),
+  withCredentials: true
 };
 
 @Injectable()
@@ -80,6 +79,25 @@ export class ProcedurService {
     return of(resArr.sort((a, b) => a.viewValue < b.viewValue ? -1 : a.viewValue > b.viewValue ? 1 : 0));
   }
 
+  getUniqueRegelName(): Observable<string[]> {
+    const resArr = [];
+    this.getFlatProcedurer().subscribe(data => {
+      data.filter(function(item) {
+        const i = resArr.findIndex(x => x.viewValue === item.RegelTypeName);
+        if (i <= -1) {
+              resArr.push({viewValue: item.RegelTypeName, value: item.RegelTypeId});
+        }
+        return null;
+      });
+    });
+    return of(resArr.sort((a, b) => a.viewValue < b.viewValue ? -1 : a.viewValue > b.viewValue ? 1 : 0));
+  }
+
+  getUniqueRaknaAntal(): Observable<object[]> {
+    const resArr = [{viewValue: '', value: ''}, {viewValue: 'KLOSS', value: 'KLOSS'}, {viewValue: 'GLAS', value: 'GLAS'} ];
+
+    return of(resArr);
+  }
   getUniqueProcedurs(selectedOrgan: string): Observable<string[]> {
     // return of([{'Biopsi', 'PX'}, {'Exostos', 'EXOS'}]);
     const resArr = [];
@@ -104,7 +122,7 @@ export class ProcedurService {
   getFakt(getProc: GetProcedurFakt): Observable<string> {
     const url = AppConfig.settings.apiServer.ProcedurFakt;
     this.logMsg.log(LogLevel.Debug, 'In getFact()', 'ProcedurService');
-    return this.http.post<string>(url, getProc, {withCredentials: true});
+    return this.http.post<string>(url, getProc, httpOptions);
   }
   /** Log a message with the MessageService */
   private log(message: string) {
