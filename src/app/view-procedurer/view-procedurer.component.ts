@@ -73,7 +73,11 @@ export class ViewProcedurerComponent implements OnInit, AfterViewInit {
   }
 
   onEdit(procedur: ProcedurerFlat): void {
-    this.logEvent.log(LogLevel.Debug, 'ViewProcedurerComponent', 'Selected procedure: ' + procedur.ProcedurerId);
+    let id = 0;
+    if (procedur) {
+      id = procedur.ProcedurerId;
+    }
+    this.logEvent.log(LogLevel.Debug, 'ViewProcedurerComponent', 'Selected procedure: ' + id);
     const dialogRef = this.dialog.open(CreateprocedurComponent, {
       width: '250px',
       data: { procedur }

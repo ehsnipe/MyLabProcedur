@@ -1,11 +1,14 @@
-<h2>Regler</h2>
+<h2>Regler <button mat-button (click)="openDialog()" title="Skapa ny regel" >
+    <mat-icon>add</mat-icon>
+</button>
+</h2>
+
 <br/>
 <!--<div class="example-header">
     <mat-form-field>
       <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
     </mat-form-field>
 </div> -->
-<button mat-raised-button (click)="openDialog()">Skapa ny regel</button>
 <div  *ngIf=dataSource >
     <div class="example-container mat-elevation-z8">
         <div>

@@ -1,18 +1,18 @@
 import { Region } from './region';
-import { RegelTypen } from './regeltyp';
+import { RegelType } from './regeltyp';
 
 
 export class Procedurer {
     ProcedurerId: number;
     region: Region;
     Organomrade: OrganArea;
-    Procedure: Procedur;
+    Procedur: Procedur;
     IsDoctor: boolean;
-    Faktureras: string;
+    WhatToCount: string;
     AtenaNameing: string;
     DateCreated: Date;
     Provmaterial: string;
-    regelTypen: RegelTypen;
+    RegelType: RegelType;
     UpdatedByUserId: string;
    }
 

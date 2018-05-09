@@ -1,4 +1,7 @@
-<h2>Procedurer</h2>
+<h2>Procedurer <button mat-button (click)="onEdit()" title="Skapa ny procedur" >
+    <mat-icon>add</mat-icon>
+</button>
+</h2>
 <br/>
 <!--<div class="example-header">
     <mat-form-field>
@@ -9,14 +12,12 @@
 <div class="example-container mat-elevation-z8">
   <div class="example-header">
     <mat-form-field>
-      <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="myFilterValue" placeholder="Filter">
+    <mat-select placeholder="Organomrade" [formControl]="organs" multiple>
+      <mat-option *ngFor="let organ of organList" [value]="organ.viewValue" (click)="applyOrganSelection()">{{organ.viewValue}}</mat-option>
+    </mat-select>
     </mat-form-field>
-  </div>
-  <div>
     <mat-form-field>
-      <mat-select placeholder="Organomrade" [formControl]="organs" multiple>
-        <mat-option *ngFor="let organ of organList" [value]="organ.viewValue" (click)="applyOrganSelection()">{{organ.viewValue}}</mat-option>
-      </mat-select>
+      <input matInput (keyup)="applyFilter($event.target.value)" [(ngModel)]="myFilterValue" placeholder="Filter">
     </mat-form-field>
   </div>
 <mat-table [dataSource]=dataSource  matSort >

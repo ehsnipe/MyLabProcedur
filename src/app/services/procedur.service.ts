@@ -119,6 +119,12 @@ export class ProcedurService {
     );
   }
 
+  updateProcedure(procedur: Procedurer) {
+    console.log(JSON.stringify(procedur));
+    return this.http.put<Procedurer>(this.procedurUrl + '/' + procedur.ProcedurerId, procedur, httpOptions).pipe(
+      tap((p: Procedurer) => this.logMsg.log(LogLevel.Debug, `update Procedur id=${p.ProcedurerId}`, 'ProcedurService'))
+    );
+  }
   getFakt(getProc: GetProcedurFakt): Observable<string> {
     const url = AppConfig.settings.apiServer.ProcedurFakt;
     this.logMsg.log(LogLevel.Debug, 'In getFact()', 'ProcedurService');

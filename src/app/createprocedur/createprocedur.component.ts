@@ -1,11 +1,14 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, NgModule } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 
 import { ProcedurService } from '../services/procedur.service';
-import { Procedurer } from '../model/procedur';
+import { Procedurer, OrganArea, Procedur } from '../model/procedur';
 import { LogEvent, LogLevel } from '../services/log.service';
 import { Regel } from '../model/regel';
 import { RegionService } from '../services/region.service';
+import { Region } from '../model/region';
+import { ProcedurerFlat } from '../model/procedurer-flat';
+import { RegelType } from '../model/regeltyp';
 
 @Component({
   selector: 'app-createprocedur',
@@ -14,7 +17,7 @@ import { RegionService } from '../services/region.service';
 })
 export class CreateprocedurComponent implements OnInit {
 
-  procedur: Procedurer;
+  procedur: ProcedurerFlat;
   regel: Regel;
   procedurs;
   regler;
@@ -28,10 +31,10 @@ export class CreateprocedurComponent implements OnInit {
   buttonText: string;
   showDelete = false;
   selectedProcedur: string;
-  selectedRegel: string;
+  selectedRegel: number;
   selectedAntal: string;
-  selectedRegion: string;
-  organOmrade: string;
+  selectedRegion: number;
+  selectedOrganOmrade: string;
 
   organList = [];
   regelList = [];
@@ -49,15 +52,14 @@ export class CreateprocedurComponent implements OnInit {
                   this.selectedAntal = data.procedur.WhatToCount;
                   this.buttonText = 'Updatera procedur';
                   this.showDelete = true;
-                  this.organOmrade = data.procedur.SourceGroupCode;
+                  this.selectedOrganOmrade = data.procedur.SourceGroupCode;
                   this.populateProcedurer(data.procedur.SourceGroupCode);
                   this.selectedProcedur = data.procedur.ProcedurKod;
-                  this.selectedRegion = data.procedur.RegionNamn;
+                  this.selectedRegion = data.procedur.RegionId;
                   this.SourceGroupCode = data.procedur.SourceGroupCode;
                   this.ProcedurBeskrivning = data.procedur.ProcedurBeskrivning;
                   this.RegelTypeName = data.procedur.RegelTypeName;
                   this.WhatToCount = data.procedur.WhatToCount;
-                  this.RegionNamn = data.procedur.RegionNamn;
                 } else {
                   this.buttonText = 'Skapa procedur';
                   this.showDelete = false;
@@ -79,14 +81,53 @@ export class CreateprocedurComponent implements OnInit {
     });
   }
 
+  setOrganArea(): void {
+    this.procedureService.getUniqueProcedurs(this.selectedOrganOmrade).subscribe(data => this.procedurs = data);
+  }
+
   populateProcedurer(selectedOrgan: string) {
     this.procedureService.getUniqueProcedurs(selectedOrgan).subscribe(data => this.procedurs = data);
   }
-  createProcedur() {
-    this.procedur = new Procedurer();
 
-    this.procedureService.createProcedure(this.procedur).subscribe();
-    this.logEvent.log(LogLevel.Debug, 'Added', 'CreateprocedurComponent');
+  onOptionsSelected(event) {
+    console.log('RegionId: ' + JSON.stringify(event));
+  }
+
+  createProcedur() {
+    if (this.procedur) {
+      this.updateProcedur();
+      return;
+    }
+    const newP = new Procedurer();
+    newP.region = new Region();
+    newP.region.RegionId = this.selectedRegion;
+    newP.Organomrade = new OrganArea();
+    newP.Organomrade.SourceGroupCode = this.selectedOrganOmrade;
+    newP.Procedur = new Procedur();
+    newP.Procedur.Kod = this.selectedProcedur;
+    newP.WhatToCount = this.selectedAntal;
+    this.procedureService.createProcedure(newP).subscribe(p => {
+      this.logEvent.log(LogLevel.Debug, 'Added procedur: ' + p.ProcedurerId, 'CreateprocedurComponent');
+      this.dialogRef.close();
+    });
+  }
+  updateProcedur() {
+    console.log(JSON.stringify(this.procedur));
+    const newP = new Procedurer();
+    newP.ProcedurerId = this.procedur.ProcedurerId;
+    newP.region = new Region();
+    newP.region.RegionId = this.selectedRegion;
+    newP.Organomrade = new OrganArea();
+    newP.Organomrade.SourceGroupCode = this.selectedOrganOmrade;
+    newP.Procedur = new Procedur();
+    newP.Procedur.Kod = this.selectedProcedur;
+    newP.RegelType = new RegelType();
+    newP.RegelType.RegelTypeId = this.selectedRegel;
+    newP.WhatToCount = this.selectedAntal;
+    console.log(JSON.stringify(newP));
+    this.procedureService.updateProcedure(newP).subscribe(p => {
+      this.logEvent.log(LogLevel.Debug, 'Update procedur: ' + p.ProcedurerId, 'CreateprocedurComponent');
+    });
   }
   cancel() {
     this.dialogRef.close();

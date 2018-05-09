@@ -8,8 +8,10 @@ export class RegionService {
   constructor() { }
 
   getUniqueRaknaAntal(): Observable<object[]> {
-    const resArr = [{viewValue: 'Västragötaland', value: 'Västragötaland'},
-                    {viewValue: 'Stockholm', value: 'Stockholm'}, {viewValue: 'Skövde', value: 'Skövde'} ];
+    const resArr = [    {value: 1, viewValue: 'Stockholm'},
+    {value: 2, viewValue: 'Skövde'},
+    {value: 3, viewValue: 'Eskilstuna'},
+    {value: 4, viewValue: 'Sunderbyn'}];
 
     return of(resArr);
   }
