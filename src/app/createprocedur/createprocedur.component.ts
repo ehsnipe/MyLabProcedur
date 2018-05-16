@@ -106,6 +106,8 @@ export class CreateprocedurComponent implements OnInit {
     newP.Procedur = new Procedur();
     newP.Procedur.Kod = this.selectedProcedur;
     newP.WhatToCount = this.selectedAntal;
+    newP.RegelType = new RegelType();
+    newP.RegelType.RegelTypeId = this.selectedRegel;
     this.procedureService.createProcedure(newP).subscribe(p => {
       this.logEvent.log(LogLevel.Debug, 'Added procedur: ' + p.ProcedurerId, 'CreateprocedurComponent');
       this.dialogRef.close();
@@ -128,6 +130,13 @@ export class CreateprocedurComponent implements OnInit {
     this.procedureService.updateProcedure(newP).subscribe(p => {
       this.logEvent.log(LogLevel.Debug, 'Update procedur: ' + p.ProcedurerId, 'CreateprocedurComponent');
     });
+    this.dialogRef.close();
+  }
+  deleteProcedur() {
+    this.procedureService.deleteProcedure(this.procedur.ProcedurerId).subscribe(p => {
+      this.logEvent.log(LogLevel.Debug, 'Update procedur: ' +  this.procedur.ProcedurerId, 'CreateprocedurComponent');
+    });
+    this.dialogRef.close();
   }
   cancel() {
     this.dialogRef.close();

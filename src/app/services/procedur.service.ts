@@ -125,6 +125,13 @@ export class ProcedurService {
       tap((p: Procedurer) => this.logMsg.log(LogLevel.Debug, `update Procedur id=${p.ProcedurerId}`, 'ProcedurService'))
     );
   }
+
+  deleteProcedure(procedurId: number) {
+    return this.http.delete(this.procedurUrl + '/Delete?procedurerId=' + procedurId, httpOptions).pipe(
+      tap((p: Procedurer) => this.logMsg.log(LogLevel.Debug, `delete Procedur id=${procedurId}`, 'ProcedurService'))
+    );
+  }
+
   getFakt(getProc: GetProcedurFakt): Observable<string> {
     const url = AppConfig.settings.apiServer.ProcedurFakt;
     this.logMsg.log(LogLevel.Debug, 'In getFact()', 'ProcedurService');

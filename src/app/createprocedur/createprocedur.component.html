@@ -28,7 +28,7 @@
         </mat-select>
         </mat-form-field>
         <mat-form-field>
-          <mat-select placeholder="Region" required  [ngModel]="selectedRegion" (ngModelChange)='onOptionsSelected($event)'>
+          <mat-select placeholder="Region" required  [(value)]="selectedRegion" (ngModelChange)='onOptionsSelected($event)'>
               <mat-option *ngFor="let region of regionList" [value]="region.value">
               {{ region.viewValue }}
               </mat-option>
