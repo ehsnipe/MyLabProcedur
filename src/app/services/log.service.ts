@@ -43,7 +43,7 @@ export class LogToConsole {
 export class LogEvent {
   private level: LogLevel = <LogLevel>LogLevel[AppConfig.settings.logging.logLevel.toString()]; // Set LogLevel from config.<env>.json
   private includeVersionNr = true;
-  private versionNr = 'Version 1.0.1000, ';
+  private versionNr = 'Version 1.0.1001, ';
   constructor(private webLogger: LogService,
               private consolLogger: LogToConsole,
               private config: AppConfig) {}

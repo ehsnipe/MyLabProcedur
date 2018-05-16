@@ -5,7 +5,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { MessageService } from '../message.service';
 import { Regel } from '../model/regel';
 import { Observable } from 'rxjs/Observable';
-import { RegelTypen } from '../model/regeltyp';
+import { RegelType } from '../model/regeltyp';
 import { of } from 'rxjs/observable/of';
 import { AppConfig } from '../app.config';
 import { LogEvent, LogLevel } from './log.service';
@@ -48,8 +48,8 @@ export class RegelService {
     });
     return of(resArr);
   }
-  getRegelTypes(): Observable<RegelTypen[]> {
-    return this.http.get<RegelTypen[]>(this.regelTypUrl);
+  getRegelTypes(): Observable<RegelType[]> {
+    return this.http.get<RegelType[]>(this.regelTypUrl);
   }
 
   createRegel(regel: Regel): Observable<Regel> {

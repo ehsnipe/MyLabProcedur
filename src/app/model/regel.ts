@@ -1,8 +1,8 @@
-import { RegelTypen } from './regeltyp';
+import { RegelType } from './regeltyp';
 
 export class Regel {
     RegelId: number;
-    RegelTypeName: RegelTypen;
+    RegelTypeName: RegelType;
     StartAntal: number;
     SlutAntal: number;
     Fakt: string;
